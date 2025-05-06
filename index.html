@@ -9,7 +9,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    typography: ({ theme }) => ({t
+                    typography: ({ theme }) => ({
                         DEFAULT: {
                             css: {
                                 '--tw-prose-body': theme('colors.gray[700]'),
@@ -162,7 +162,8 @@
 <body class='bg-slate-100 py-8'>
     <div class='mx-auto max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden'>
         <header class="bg-gray-800 text-white p-6">
-            <h1 class='text-3xl font-bold'>AI Literacy Lab: Hands-On Prompting</h1>  for academics and instructors.</p>
+            <h1 class='text-3xl font-bold'>AI Literacy Lab: Hands-On Prompting</h1>
+            <p>for academics and instructors.</p>
         </header>
 
         <div class="p-6 prose max-w-none prose-slate">
@@ -179,16 +180,18 @@
                 <li><strong>Mad-Lib Warm-Up:</strong> A fun introduction to core terminology.</li>
                 <li><strong>OpenRouter Guide:</strong> Setting up your environment to interact with models.</li>
                 <li><strong>Prompting Exercises:</strong> Hands-on tasks to practice prompting techniques.
-                <ul class="list-circle list-inside ml-4">
-                    <li>Task 1: Document Completion</li>
-                    <li>Task 2: Document Understanding (using vision models)</li>
-                <li><strong>Model Comparisons:</strong> Review output differences between models analyzing the same documents.
-                <ul class="list-circle list-inside ml-4">
-                    <li>Example 1: Handwritten recipe card</li>
-                    <li>Example 2: Engraved image and poem</li>
-                </ul>
-                <li><strong>AI-LLM Glossary:</strong> Key terms for understanding LLMs.</li>
+                    <ul class="list-circle list-inside ml-4">
+                        <li>Task 1: Document Completion</li>
+                        <li>Task 2: Document Understanding (using vision models)</li>
+                    </ul>
                 </li>
+                <li><strong>Model Comparisons:</strong> Review output differences between models analyzing the same documents.
+                    <ul class="list-circle list-inside ml-4">
+                        <li>Example 1: Handwritten recipe card</li>
+                        <li>Example 2: Engraved image and poem</li>
+                    </ul>
+                </li>
+                <li><strong>AI-LLM Glossary:</strong> Key terms for understanding LLMs.</li>
             </ul>
             </div>
             <!-- End Introductory Framing Content -->
@@ -307,7 +310,7 @@
                         <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content p-4 border-t">
-                        <h4 class="font-semibold mt-4">Task 1: Document Completion Task</h4>
+                        <h4 class="font-semibold mt-4">Task 1: Document Completion</h4>
                         <ol class="list-decimal list-inside space-y-2 mb-4">
                             <li>Paste a paragraph from a primary source</li>
                             <li>Prompt:
