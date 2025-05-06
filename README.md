@@ -1,5 +1,5 @@
 
-# Hands-On LLM Prompting
+# CUNY GC | Hands-On AI Prompting Lab
 
 _An interactive guide to language model concepts and prompting techniques._
 
