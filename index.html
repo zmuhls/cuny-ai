@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>AI Prompting in Praxis</title>
+    <title>AI Literacy Lab: Prompting in Praxis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
@@ -85,6 +85,65 @@
             margin-left: 5px;
             display: none; /* Initially hidden */
         }
+        /* Enhanced code block styling */
+        code {
+            position: relative;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s ease;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+        code:hover {
+            background-color: #5283b4c7; /* slightly highlight on hover */
+        }
+        pre {
+            position: relative;
+            max-width: 100%;
+            overflow-x: auto;
+            border-radius: 0.375rem;
+            margin: 1rem 0;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #475569;
+        }
+        pre code {
+            display: block;
+            padding: 1rem;
+            line-height: 1.5;
+            background-color: transparent;
+            color: inherit;
+            overflow-x: auto;
+            tab-size: 2;
+        }
+        .code-wrapper {
+            position: relative;
+            margin: 1rem 0;
+        }
+        .inline-code {
+            position: relative;
+            cursor: pointer;
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+        }
+        .copy-button {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+        .copy-button:hover {
+            opacity: 1 !important;
+        }
+        .inline-copy-button {
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+        .inline-copy-button:hover {
+            opacity: 1;
+        }
         .qr-placeholder {
             border: 2px dashed #ccc;
             background-color: #f9f9f9;
@@ -103,8 +162,8 @@
 <body class='bg-slate-100 py-8'>
     <div class='mx-auto max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden'>
         <header class="bg-gray-800 text-white p-6">
-            <h1 class='text-3xl font-bold'>Hands-On LLM Prompting</h1>
-            <p class="mt-2 text-gray-300">An interactive guide to language model concepts and prompting techniques.</p>
+            <h1 class='text-3xl font-bold'>AI Literacy Lab: Hands-On Prompting</h1>
+            <p class="mt-2 text-gray-300">An interactive guide to language model concepts and prompting techniques for academics and instructors.</p>
         </header>
 
         <div class="p-6 prose max-w-none prose-slate">
@@ -115,13 +174,13 @@
                 <img src="images/openrouter.png" alt="OpenRouter Logo" class="h-12 w-auto mr-4">
                 <h5 class="text-2xl font-semibold text-blue-800 mt-0">Welcome!</h5>
             </div>
-            <p class="text-lg mb-4">This micro workshop introduces key concepts in Large Language Model (LLM) prompting and covers techniques for interacting with AI models, with a focus on historical research and transcription tasks.</p>
+            <p class="text-lg mb-4">This lab covers key concepts in Large Language Model (LLM) prompting and techniques for interacting with AI models, with a particular focus on historical research and transcription tasks.</p>
             <h3 class="text-xl font-semibold text-blue-700 mt-4 mb-2">Roadmap</h3>
             <ul class="list-disc list-inside space-y-1 mb-4">
-                <li><strong>Mad-Lib Warm-Up (Optional):</strong> A fun introduction to core terminology.</li>
+                <li><strong>Mad-Lib Warm-Up:</strong> A fun introduction to core terminology.</li>
                 <li><strong>AI-LLM Glossary:</strong> Key terms for understanding LLMs.</li>
-                <li><strong>OpenRouter Sandbox Guide:</strong> Setting up your environment to interact with models.</li>
-                <li><strong>Prompting Exercises (Required):</strong> Hands-on tasks to practice prompting techniques.
+                <li><strong>OpenRouter Guide:</strong> Setting up your environment to interact with models.</li>
+                <li><strong>Prompting Exercises:</strong> Hands-on tasks to practice prompting techniques.
                 <ul class="list-circle list-inside ml-4">
                     <li>Task 1: Document Completion</li>
                     <li>Task 2: Document Understanding (using vision models)</li>
@@ -193,7 +252,144 @@
                     </div>
                 </div>
 
-                <!-- Accordion Item 2: AI-LLM Glossary -->
+
+                <!-- Accordion Item 3: OpenRouter Sandbox Guide -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-emerald-100 hover:bg-emerald-200 focus:outline-none">
+                        <span class="font-semibold text-lg">OpenRouter Sandbox Guide</span>
+                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <p><em>Scanning opens the provisioned OpenRouter chat.</em></p>
+                        <h4 class="font-semibold mt-4">API Provider: Fields & Defaults</h4>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li>Navigate to the <a href="https://web.chatboxai.app/">Chatbox web portal</a></li>
+                            <li>Head to "Settings" in the lower left corner</li>
+                            <li>Click "Model Provider" then "Add Custom Provider"</li>
+                            <li><strong>Add Name</strong>: OpenRouter</li>
+                            <li><strong>Add API Host</strong>: https://openrouter.ai/api/v1/chat/completions</li>
+                            <li><strong>Add API Key</strong>: <span class="cursor-pointer text-blue-600 hover:underline" onclick="toggleApiVisibility(this)">Click to add API Host</span>
+                                <span class="hidden api-host-value"> 
+                                    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                                
+                                </span>
+                            </li>
+
+                            <script>
+                            function toggleApiVisibility(element) {
+                                const apiValue = element.nextElementSibling;
+                                if (apiValue.classList.contains('hidden')) {
+                                    apiValue.classList.remove('hidden');
+                                    element.textContent = "Hide API Host";
+                                    element.classList.add('text-red-600');
+                                } else {
+                                    apiValue.classList.add('hidden');
+                                    element.textContent = "Click to reveal API Host";
+                                    element.classList.remove('text-red-600');
+                                }
+                            }
+                            </script>
+                            <li><strong>Add Model</strong>: Choose or paste an ID (see below)</li>
+                            <li><strong>Adjust Max Tokens in Context</strong>: Optional cap. Prevents runaway length and saves credits</li>
+                            <li><strong>Adjust Temperature or Top-p</strong>: 0.2–1.0 sliders (lower values → crisp summaries; higher → creative drafts)</li>
+                            <li>Click <strong>Save</strong></li>
+                        </ol>
+                        <h4 class="font-semibold mt-4">Ready-to-Try Model IDs</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>openai/gpt-4o</strong>: Flagship large language model from OpenAI</li>
+                            <li><strong>anthropic/claude-3-sonnet</strong>: Flagship large language model from Anthropic</li>
+                            <li><strong>google/gemini-pro-vision</strong>: Vision language model for extracting images + text together from Google</li>
+                            <li><strong>mistralai/pixtral-large-2411</strong>: Vision language model built on top of <strong>mistral-large-2411</strong> from MistralAI</li>
+                            <li><strong>mistralai/pixtral-12b</strong>: Fast, lightweight vision language model for documenting understanding from Mistral AI</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 4: Prompting Exercises -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-amber-100 hover:bg-amber-200 focus:outline-none">
+                        <span class="font-semibold text-lg">Prompting Exercises</span>
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <h4 class="font-semibold mt-4">Task 1: Document Completion Task</h4>
+                        <ol class="list-decimal list-inside space-y-2 mb-4">
+                            <li>Paste a paragraph from a primary source</li>
+                            <li>Prompt:
+                                <pre><code>Complete the paragraph based on this incomplete excerpt from a primary source:</span>[insert-primary-source]</code></pre>
+                            </li>
+                            <li>Repeat with Temperature 0.2 vs 0.7 vs 1.0 and note changes</li>
+                        </ol>
+                        
+                        <div class="pl-7 -mt-2 mb-6">
+                            <figure class="w-full">
+                                <img src="images/temperature.png" alt="Comparison of output between temperature 0.2 (deterministic) and 0.8 (creative)" class="border rounded-lg shadow-sm my-2 max-w-full w-full">
+                                <figcaption class="text-left text-sm text-gray-600 mt-2">
+                                    <strong>Temperature comparison:</strong> The same prompt yields different outputs at different temperature settings. 
+                                    Lower values (0.2) produce more consistent, focused responses while higher values (0.8) introduce more creativity and variation.
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <h4 class="font-semibold mt-4">Task 2: Document Understanding</h4>
+                        <ol class="list-decimal list-inside space-y-2 mb-4">
+                            <li>Find the image of a historical document</li>
+                            <li>Enter one of these IDs in the Model field:
+                                <ul class="list-disc list-inside ml-4">
+                                    <li>openai/gpt-4o</li>
+                                    <li>anthropic/claude-3-sonnet</li>
+                                    <li>google/gemini-pro-vision</li>
+                                    <li>mistralai/pixtral-12b</li>
+                                </ul>
+                            </li>
+                            <li>Edit the system message for the task:
+                                <pre><code>You are an advanced OCR processing tool for parsing and transcribing historical materials with mixed media, multiple formats, and/or challenging handwriting.</code></pre>
+                            </li>
+                            <li>Paste the following "seed input" and attach your image:
+                                <pre><code>Transcribe the attached image of the document with alt-text for mixed media or embedded images, filling as Dublin Core fields where present and grounded in the input file, which the user will provide.</code></pre>
+                            </li>
+                        </ol>
+
+                    </div>
+                </div>
+
+                <!-- Accordion Item 5: Comparing Model Outputs -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-rose-100 hover:bg-rose-200 focus:outline-none">
+                        <span class="font-semibold text-lg">Comparing Model Outputs</span>
+                        <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <h4 class="font-semibold mt-4">Advanced Examples: Comparing Model Outputs</h4>
+                        <p>Testing examples made from Chatbox HTML exports to see how different vision models stack up against actual sources.</p>
+
+                        <div class="mt-4 p-4 border rounded-md bg-gray-50">
+                            <h5 class="font-semibold text-md mb-2">Example 1: Handwritten Recipe Card</h5>
+                            <p class="mb-2">This example shows how various models transcribe and analyze a handwritten recipe card ("Pecan Butterballs Cookies"). Observe differences in transcription accuracy, alt text generation, and Dublin Core field extraction, especially with challenging handwriting.</p>
+                            <a href="recipe.html" target="_blank" class="text-blue-600 hover:underline">View Recipe Comparison</a>
+                            <img src="images/recipe.jpg" alt="Thumbnail of Pecan Butterballs Recipe Card" class="mt-2 h-24 w-auto border rounded shadow-sm">
+                        </div>
+
+                        <div class="mt-4 p-4 border rounded-md bg-gray-50">
+                            <h5 class="font-semibold text-md mb-2">Example 2: 18th-Century Satirical Engraving</h5>
+                            <p class="mb-2">This example features an 18th-century engraving ("The Magician, or Bottle Cungerer") with dense text and complex imagery. Compare how models handle historical language, layout complexity, and the extraction of metadata from printed sources.</p>
+                            <a href="magician.html" target="_blank" class="text-blue-600 hover:underline">View Magician Comparison</a>
+                            <img src="images/magician.jpg" alt="Thumbnail of The Magician Engraving" class="mt-2 h-24 w-auto border rounded shadow-sm">
+                        </div>
+
+                        <h5 class="font-semibold text-md mt-6 mb-2">Comparative Analysis & Reflection</h5>
+                        <p>As you review these examples, consider the following points:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-4">
+                            <li><strong>Transcription Accuracy:</strong> Which models were better at reading handwritten vs. printed text? Did any struggle with specific characters or historical language?</li>
+                            <li><strong>Alt Text Quality:</strong> How descriptive and accurate were the generated alt texts? Did they capture the key elements of the images?</li>
+                            <li><strong>Metadata Extraction:</strong> How well did the models identify and fill Dublin Core fields? Did they hallucinate information not present in the source?</li>
+                            <li><strong>Handling Ambiguity:</strong> How did models deal with unclear parts of the images or text?</li>
+                            <li><strong>Formatting and Structure:</strong> Did the models present the information clearly and logically?</li>
+                        </ul>
+                        <p>Reflecting on these differences can help you choose the best model for specific tasks and understand the strengths and weaknesses of current vision-language technology.</p>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 6: AI-LLM Glossary -->
                 <div class="border rounded-lg overflow-hidden">
                     <button class="accordion-button w-full flex justify-between items-center p-4 bg-violet-100 hover:bg-violet-200 focus:outline-none">
                         <span class="font-semibold text-lg">AI-LLM Glossary</span>
@@ -274,137 +470,11 @@
                     </div>
                 </div>
 
-                <!-- Accordion Item 3: OpenRouter Sandbox Guide -->
-                <div class="border rounded-lg overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-emerald-100 hover:bg-emerald-200 focus:outline-none">
-                        <span class="font-semibold text-lg">OpenRouter Sandbox Guide</span>
-                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="accordion-content p-4 border-t">
-                        <p><em>Scanning opens the provisioned OpenRouter chat.</em></p>
-                        <h4 class="font-semibold mt-4">API Provider: Fields & Defaults</h4>
-                        <ol class="list-decimal list-inside space-y-2">
-                            <li>Navigate to the <a href="https://web.chatboxai.app/">Chatbox web portal</a></li>
-                            <li><strong>Click </strong>"Settings" in the lower left corner</li>
-                            <li><strong>Click </strong>"Model Provider" then "Add Custom Provider"</li>
-                            <li><strong>Name</strong>: <code>OpenRouter</code></li>
-                            <li><strong>API Host</strong>: <code>https://openrouter.ai/api/v1/chat/completions</code></li>
-                            <li><strong>API Key</strong> —> <span class="cursor-pointer text-blue-600 hover:underline" onclick="toggleApiVisibility(this)">Click to reveal API Host</span>
-                                <span class="hidden api-host-value">
-                                    <code>-or-v1-3bc2888f4bd76427b3230f70fe5480f70385c2202452ac3a5a8c68c1fbc94e3f</code>
-                                </span>
-                            </li>
-
-                            <script>
-                            function toggleApiVisibility(element) {
-                                const apiValue = element.nextElementSibling;
-                                if (apiValue.classList.contains('hidden')) {
-                                    apiValue.classList.remove('hidden');
-                                    element.textContent = "Hide API Host";
-                                    element.classList.add('text-red-600');
-                                } else {
-                                    apiValue.classList.add('hidden');
-                                    element.textContent = "Click to reveal API Host";
-                                    element.classList.remove('text-red-600');
-                                }
-                            }
-                            </script>
-                            <li><strong>Model</strong>: Choose or paste an ID (see below)</li>
-                            <li><strong>Max Tokens in Context</strong>: Optional cap. Prevents runaway length and saves credits</li>
-                            <li><strong>Temperature / Top-p</strong>: 0.2–1.0 sliders (lower values → crisp summaries; higher → creative drafts)</li>
-                            <li>Click <strong>Save</strong></li>
-                        </ol>
-                        <h4 class="font-semibold mt-4">Ready-to-Try Model IDs</h4>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li><code>openai/gpt-4o</code>: Flagship large language model from OpenAI</li>
-                            <li><code>anthropic/claude-3-sonnet</code>: Flagship large language model from Anthropic</li>
-                            <li><code>google/gemini-pro-vision</code>: Vision language model for extracting images + text together from Google</li>
-                            <li><code>mistralai/pixtral-large-2411</code>: Vision language model built on top of <code>mistral-large-2411</code> from MistralAI</li>
-                            <li><code>mistralai/pixtral-12b</code>: Fast, lightweight vision language model for documenting understanding from Mistral AI</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Accordion Item 4: Prompting Exercises -->
-                <div class="border rounded-lg overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-amber-100 hover:bg-amber-200 focus:outline-none">
-                        <span class="font-semibold text-lg">Prompting Exercises</span>
-                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="accordion-content p-4 border-t">
-                        <h4 class="font-semibold mt-4">Task 1: Document Completion Task</h4>
-                        <ol class="list-decimal list-inside space-y-2 mb-4">
-                            <li>Paste a paragraph from a primary source</li>
-                            <li>Prompt:
-                                <pre><code>Complete the incomplete paragraph in the following excerpt from a primary source:
-[insert-excerpt]</code></pre>
-                            </li>
-                            <li>Repeat with Temperature 0.2 vs 0.8 and note changes</li>
-                        </ol>
-
-                        <h4 class="font-semibold mt-4">Task 2: Document Understanding</h4>
-                        <ol class="list-decimal list-inside space-y-2 mb-4">
-                            <li>Find the image of a historical document</li>
-                            <li>Enter one of these models:
-                                <ul class="list-disc list-inside ml-4">
-                                    <li><code>openai/gpt-4o</code></li>
-                                    <li><code>anthropic/claude-3-sonnet</code></li>
-                                    <li><code>google/gemini-pro-vision</code></li>
-                                    <li><code>mistralai/pixtral-12b</code></li>
-                                </ul>
-                            </li>
-                            <li>Edit the system message for the task:
-                                <pre><code>You are an advanced OCR processing tool for parsing and transcribing historical materials with mixed media, multiple formats, and/or challenging handwriting.</code></pre>
-                            </li>
-                            <li>Paste the next "seed prompt" and attach your image:
-                                <pre><code>Transcribe the attached image of the document with alt-text for mixed media or embedded images, filling as Dublin Core fields where present and grounded in the input file, which the user will provide.</code></pre>
-                            </li>
-                        </ol>
-
-                    </div>
-                </div>
-
-                <!-- Accordion Item 5: Comparing Model Outputs -->
-                <div class="border rounded-lg overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-rose-100 hover:bg-rose-200 focus:outline-none">
-                        <span class="font-semibold text-lg">Comparing Model Outputs</span>
-                        <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="accordion-content p-4 border-t">
-                        <h4 class="font-semibold mt-4">Advanced Examples: Comparing Model Outputs</h4>
-                        <p>Testing examples made from Chatbox HTML exports to see how different vision models stack up against actual sources.</p>
-
-                        <div class="mt-4 p-4 border rounded-md bg-gray-50">
-                            <h5 class="font-semibold text-md mb-2">Example 1: Handwritten Recipe Card</h5>
-                            <p class="mb-2">This example shows how various models transcribe and analyze a handwritten recipe card ("Pecan Butterballs Cookies"). Observe differences in transcription accuracy, alt text generation, and Dublin Core field extraction, especially with challenging handwriting.</p>
-                            <a href="recipe.html" target="_blank" class="text-blue-600 hover:underline">View Recipe Comparison</a>
-                            <img src="images/recipe.jpg" alt="Thumbnail of Pecan Butterballs Recipe Card" class="mt-2 h-24 w-auto border rounded shadow-sm">
-                        </div>
-
-                        <div class="mt-4 p-4 border rounded-md bg-gray-50">
-                            <h5 class="font-semibold text-md mb-2">Example 2: 18th-Century Satirical Engraving</h5>
-                            <p class="mb-2">This example features an 18th-century engraving ("The Magician, or Bottle Cungerer") with dense text and complex imagery. Compare how models handle historical language, layout complexity, and the extraction of metadata from printed sources.</p>
-                            <a href="magician.html" target="_blank" class="text-blue-600 hover:underline">View Magician Comparison</a>
-                            <img src="images/magician.jpg" alt="Thumbnail of The Magician Engraving" class="mt-2 h-24 w-auto border rounded shadow-sm">
-                        </div>
-
-                        <h5 class="font-semibold text-md mt-6 mb-2">Comparative Analysis & Reflection</h5>
-                        <p>As you review these examples, consider the following points:</p>
-                        <ul class="list-disc list-inside space-y-1 mb-4">
-                            <li><strong>Transcription Accuracy:</strong> Which models were better at reading handwritten vs. printed text? Did any struggle with specific characters or historical language?</li>
-                            <li><strong>Alt Text Quality:</strong> How descriptive and accurate were the generated alt texts? Did they capture the key elements of the images?</li>
-                            <li><strong>Metadata Extraction:</strong> How well did the models identify and fill Dublin Core fields? Did they hallucinate information not present in the source?</li>
-                            <li><strong>Handling Ambiguity:</strong> How did models deal with unclear parts of the images or text?</li>
-                            <li><strong>Formatting and Structure:</strong> Did the models present the information clearly and logically?</li>
-                        </ul>
-                        <p>Reflecting on these differences can help you choose the best model for specific tasks and understand the strengths and weaknesses of current vision-language technology.</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 
     <script src="js/madlib.js"></script>
+    <script src="js/code-copy.js"></script>
 </body>
 </html>
