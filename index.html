@@ -9,7 +9,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    typography: ({ theme }) => ({
+                    typography: ({ theme }) => ({t
                         DEFAULT: {
                             css: {
                                 '--tw-prose-body': theme('colors.gray[700]'),
@@ -232,9 +232,8 @@
                                 <span class="madlib-answer">[Top-p]</span>
                             </p>
                             <p>
-                                Behind the scenes, the request travels through an <input type="text" class="madlib-input" data-answer="API"> to the chosen <input type="text" class="madlib-input" data-answer="Model">. 
+                                Once authenticated with a secret key, the request travels through an <input type="text" class="madlib-input" data-answer="API">.
                                 <span class="madlib-answer">[API]</span>
-                                <span class="madlib-answer">[Model]</span>
                                 <p>
                                 After slicing language from your prompt into<input type="text" class="madlib-input" data-answer="Tokens">, the AI system consults its <input type="text" class="madlib-input" data-answer="Training Data"> to predict the next steps in the sequence based on mathematical vectors called <input type="text" class="madlib-input" data-answer="Embeddings">.
                                 <span class="madlib-answer">[Tokens]</span>
