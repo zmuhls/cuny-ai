@@ -12,14 +12,14 @@ _An interactive guide to language model concepts and prompting techniques._
 ## Roadmap
 
 - **Mad-Lib Warm-Up:** A fun introduction to core terminology.
-- **AI-LLM Glossary:** Key terms for understanding LLMs.
 - **OpenRouter Guide:** Setting up your environment to interact with models.
-- **Prompting Exercises:**
+- **Prompting Exercises:** Hands-on tasks to practice prompting techniques.
   - Task 1: Document Completion
   - Task 2: Document Understanding (using vision models)
-- **Model Comparisons:**
+- **Model Comparisons:** Review output differences between models analyzing the same documents.
   - Example 1: Handwritten recipe card
   - Example 2: Engraved image and poem
+- **AI-LLM Glossary:** Key terms for understanding AI basics, prompting, and LLMs.
 
 ---
 
@@ -70,7 +70,7 @@ Even so, gym class heroes like to speed things up with [____].
 <summary><strong>OpenRouter Sandbox Guide</strong></summary>
 
 1. Go to: [Chatbox Web Portal](https://web.chatboxai.app/)
-2. Settings â Model Provider â Add Custom Provider
+2. Navigate to settings -> Model Provider -> Add Custom Provider
 3. Fill in:
    - **Name**: `OpenRouter`
    - **API Host**: `https://openrouter.ai/api/v1/chat/completions`
