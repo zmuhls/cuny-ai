@@ -113,10 +113,10 @@
             <div class="mb-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
             <div class="flex items-center mb-4">
                 <img src="images/openrouter.png" alt="OpenRouter Logo" class="h-12 w-auto mr-4">
-                <h2 class="text-2xl font-semibold text-blue-800 mt-0">Welcome!</h2>
+                <h5 class="text-2xl font-semibold text-blue-800 mt-0">Welcome!</h5>
             </div>
-            <p class="text-lg mb-4">This micro-lab introduces key concepts in Large Language Model (LLM) prompting and techniques for interacting with AI models, with a focus on historical research and transcription tasks.</p>
-            <h3 class="text-xl font-semibold text-blue-700 mt-4 mb-2">Workshop Structure:</h3>
+            <p class="text-lg mb-4">This micro workshop introduces key concepts in Large Language Model (LLM) prompting and covers techniques for interacting with AI models, with a focus on historical research and transcription tasks.</p>
+            <h3 class="text-xl font-semibold text-blue-700 mt-4 mb-2">Roadmap</h3>
             <ul class="list-disc list-inside space-y-1 mb-4">
                 <li><strong>Mad-Lib Warm-Up (Optional):</strong> A fun introduction to core terminology.</li>
                 <li><strong>AI-LLM Glossary:</strong> Key terms for understanding LLMs.</li>
@@ -176,18 +176,18 @@
                             </p>
                             <p>
                                 Behind the scenes, the request travels through an <input type="text" class="madlib-input" data-answer="API"> to the chosen <input type="text" class="madlib-input" data-answer="Model">. 
-                                
-                                After slicing language from your prompt into<input type="text" class="madlib-input" data-answer="Tokens"> and consults its <input type="text" class="madlib-input" data-answer="Training Data"> to predict the next steps in the sequence based on mathematical vectors called <input type="text" class="madlib-input" data-answer="Embeddings">.
+                                <p>
+                                After slicing language from your prompt into<input type="text" class="madlib-input" data-answer="Tokens">, the AI system consults its <input type="text" class="madlib-input" data-answer="Training Data"> to predict the next steps in the sequence based on mathematical vectors called <input type="text" class="madlib-input" data-answer="Embeddings">.
                                 <span class="madlib-answer">[API]</span>
                                 <span class="madlib-answer">[Model]</span>
                                 <span class="madlib-answer">[Tokens]</span>
                                 <span class="madlib-answer">[Training Data]</span>
-                                 <span class="madlib-answer">[Embeddings]</span>
-                            </p>
-                            <p>
-                                Even so, gym class heroes like to speed things up with <input type="text" class="madlib-input" data-answer="Batch Prompting">.
+                                <span class="madlib-answer">[Embeddings]</span>
+                                </p>
+                                <p>
+                                Even so gym class heroes like to speed things up with <input type="text" class="madlib-input" data-answer="Batch Prompting">.
                                 <span class="madlib-answer">[Batch Prompting]</span>
-                            </p>
+                                </p>
                             <button id="show-answers-btn" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none">Show Answers</button>
                         </div>
                     </div>
@@ -309,8 +309,6 @@
                                 }
                             }
                             </script>
-                                <div class="qr-placeholder">QR-CODE<br>HERE</div>
-                            </li>
                             <li><strong>Model</strong>: Choose or paste an ID (see below)</li>
                             <li><strong>Max Tokens in Context</strong>: Optional cap. Prevents runaway length and saves credits</li>
                             <li><strong>Temperature / Top-p</strong>: 0.2–1.0 sliders (lower values → crisp summaries; higher → creative drafts)</li>
