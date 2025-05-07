@@ -111,12 +111,12 @@ Transcribe the attached image of the document with alt-text for mixed media, fil
 
 ### Example 1: Handwritten Recipe Card
 
-[View Recipe Comparison](recipe.html)  
+[View Recipe Comparison](pages/recipe.html)  
 ![Recipe Card](images/recipe.jpg)
 
 ### Example 2: 18th-Century Satirical Engraving
 
-[View Magician Comparison](magician.html)  
+[View Magician Comparison](pages/magician.html)  
 ![Magician Engraving](images/magician.jpg)
 
 ### Reflection Questions
