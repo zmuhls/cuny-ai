@@ -1,3 +1,4 @@
+
 # CUNY GC | AI Prompting Lab
 
 _An interactive guide to language model concepts and prompting techniques._
@@ -23,7 +24,6 @@ _An interactive guide to language model concepts and prompting techniques._
 ---
 
 <details>
-
 <summary><strong>Mad-Lib Warm-Up</strong></summary>
 
 **Term Bank:** `API`, `Batch Prompting`, `Model`, `Prompt`, `Role Assignment`, `System Message`, `Temperature`, `Top-p`, `Tokens`, `Training Data`
@@ -70,7 +70,7 @@ Even so, gym class heroes like to speed things up with [____].
 <summary><strong>OpenRouter Sandbox Guide</strong></summary>
 
 1. Go to: [Chatbox Web Portal](https://web.chatboxai.app/)
-2. Settings â Model Provider â Add Custom Provider
+2. Navigate to settings -> Model Provider -> Add Custom Provider
 3. Fill in:
    - **Name**: `OpenRouter`
    - **API Host**: `https://openrouter.ai/api/v1/chat/completions`

@@ -163,18 +163,18 @@
     <div class='mx-auto max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden'>
         <header class="bg-gray-800 text-white p-6">
             <h1 class='text-3xl font-bold'>AI Literacy Lab: Hands-On Prompting</h1>
-            <p>An brief guide to AI prompting for academics and instructors</p>
+            <p>A brief guide to language model prompting for academics and instructors | <a href="https://github.com/zmuhls/cuny-ai">GitHub Repo</a></p>
         </header>
 
         <div class="p-6 prose max-w-none prose-slate">
 
-            <!-- Introductory Framing Content -->
+<!-- Introductory Framing Content -->
             <div class="mb-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
             <div class="flex items-center mb-4">
                 <img src="images/openrouter.png" alt="OpenRouter Logo" class="h-12 w-auto mr-4">
                 <h5 class="text-2xl font-semibold text-blue-800 mt-0">Welcome!</h5>
             </div>
-            <p class="text-lg mb-4">This lab covers key concepts in Large Language Model (LLM) prompting and techniques for interacting with AI models, with a particular focus on historical research and transcription tasks.</p>
+            <p class="text-lg mb-4">This lab covers key concepts in large language model (LLM) prompting and introduces strategies for interacting with AI models, with a focus on document completion and transcription tasks.</p>
             <h3 class="text-xl font-semibold text-blue-700 mt-4 mb-2">Roadmap</h3>
             <ul class="list-disc list-inside space-y-1 mb-4">
                 <li><strong>Mad-Lib Warm-Up:</strong> A fun introduction to core terminology.</li>
@@ -194,11 +194,11 @@
                 <li><strong>AI-LLM Glossary:</strong> Key terms for understanding LLMs.</li>
             </ul>
             </div>
-            <!-- End Introductory Framing Content -->
 
+<!-- End Introductory Framing Content -->
             <div class="space-y-4" id="accordion-container">
 
-                <!-- Accordion Item 1: Mad-Lib Warm-Up -->
+<!-- Accordion Item 1: Mad-Lib Warm-Up -->
                 <div class="border rounded-lg overflow-hidden">
                     <button class="accordion-button w-full flex justify-between items-center p-4 bg-cyan-100 hover:bg-cyan-200 focus:outline-none">
                         <span class="font-semibold text-lg">Mad-Lib Warm-Up</span>
@@ -243,7 +243,7 @@
                                 <span class="madlib-answer">[Embeddings]</span>
                                 </p>
                                 <p>
-                                Even so gym class heroes like to speed things up with <input type="text" class="madlib-input" data-answer="Batch Prompting">.
+                                Even so, gym class heroes like to speed things up with <input type="text" class="madlib-input" data-answer="Batch Prompting">.
                                 <span class="madlib-answer">[Batch Prompting]</span>
                                 </p>
                             <button id="show-answers-btn" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none">Show Answers</button>
@@ -252,10 +252,10 @@
                 </div>
 
 
-                <!-- Accordion Item 2: OpenRouter Guide -->
+<!-- Accordion Item 2: OpenRouter API Guide -->
                 <div class="border rounded-lg overflow-hidden">
                     <button class="accordion-button w-full flex justify-between items-center p-4 bg-emerald-100 hover:bg-emerald-200 focus:outline-none">
-                        <span class="font-semibold text-lg">OpenRouter Sandbox Guide</span>
+                        <span class="font-semibold text-lg">OpenRouter API Guide</span>
                         <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content p-4 border-t">
@@ -269,7 +269,7 @@
                             <li><strong>Add API Host</strong>: https://openrouter.ai/api/v1/chat/completions</li>
                             <li><strong>Add API Key</strong>: <span class="cursor-pointer text-blue-600 hover:underline" onclick="toggleApiVisibility(this)">Click to add API Host</span>
                                 <span class="hidden api-host-value"> 
-                                    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                                
+                                    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                                
                                 </span>
                             </li>
 
@@ -321,7 +321,7 @@
                         
                         <div class="pl-7 -mt-2 mb-6">
                             <figure class="w-full">
-                                <img src="images/temperature.png" alt="Comparison of output between temperature 0.2 (deterministic) and 0.8 (creative)" class="border rounded-lg shadow-sm my-2 max-w-full w-full">
+                                <img src="images/temperature.png" alt="Comparison of output between temperature 0.2 (deterministic) and 0.7 (creative)" class="border rounded-lg shadow-sm my-2 max-w-full w-full">
                                 <figcaption class="text-left text-sm text-gray-600 mt-2">
                                     <strong>Temperature comparison:</strong> The same prompt yields different outputs at different temperature settings. 
                                     Lower values (0.2) produce more consistent, focused responses while higher values (0.8) introduce more creativity and variation.
@@ -351,7 +351,7 @@
                     </div>
                 </div>
 
-                <!-- Accordion Item 5: Comparing Model Outputs -->
+<!-- Accordion Item 5: Comparing Model Outputs -->
                 <div class="border rounded-lg overflow-hidden">
                     <button class="accordion-button w-full flex justify-between items-center p-4 bg-rose-100 hover:bg-rose-200 focus:outline-none">
                         <span class="font-semibold text-lg">Comparing Model Outputs</span>
@@ -388,7 +388,7 @@
                     </div>
                 </div>
 
-                <!-- Accordion Item 5: AI-LLM Glossary -->
+<!-- Accordion Item 5: AI-LLM Glossary -->
                 <div class="border rounded-lg overflow-hidden">
                     <button class="accordion-button w-full flex justify-between items-center p-4 bg-violet-100 hover:bg-violet-200 focus:outline-none">
                         <span class="font-semibold text-lg">AI-LLM Glossary</span>
@@ -437,7 +437,7 @@
                                 <dd class="mb-2">A sampling parameter (0–2) that controls output randomness: lower values (e.g., 0.2) make responses more focused and deterministic, while higher values (e.g., 0.8) increase creativity and diversity.</dd>
 
                                 <dt><strong>Top-p</strong></dt>
-                                <dd class="mb-2">A probability threshold for sampling where the model considers tokens whose cumulative probability exceeds this value to strike a balance between common and diverse outputs.</dd>
+                                <dd class="mb-2">Helps decide which words (tokens) a model should consider when generating text, which helps it balance between choosing common words and including more varied options.</dd>
                             </dl>
                         </div>
                         <div class="mb-2">
