@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AI Literacy Lab: Prompting in Praxis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    typography: ({ theme }) => ({
+                        DEFAULT: {
+                            css: {
+                                '--tw-prose-body': theme('colors.gray[700]'),
+                                '--tw-prose-headings': theme('colors.gray[900]'),
+                                '--tw-prose-links': theme('colors.blue[600]'),
+                                '--tw-prose-bold': theme('colors.gray[900]'),
+                                '--tw-prose-counters': theme('colors.gray[500]'),
+                                '--tw-prose-bullets': theme('colors.gray[400]'),
+                                '--tw-prose-hr': theme('colors.gray[200]'),
+                                '--tw-prose-quotes': theme('colors.gray[600]'),
+                                '--tw-prose-quote-borders': theme('colors.gray[300]'),
+                                '--tw-prose-captions': theme('colors.gray[500]'),
+                                '--tw-prose-code': theme('colors.indigo[600]'),
+                                '--tw-prose-pre-code': theme('colors.indigo[200]'),
+                                '--tw-prose-pre-bg': theme('colors.gray[800]'),
+                                '--tw-prose-th-borders': theme('colors.gray[300]'),
+                                '--tw-prose-td-borders': theme('colors.gray[200]'),
+                                'code::before': { content: '""' },
+                                'code::after': { content: '""' },
+                                'code': {
+                                    backgroundColor: theme('colors.gray[100]'),
+                                    padding: '0.1em 0.3em',
+                                    borderRadius: '0.25em',
+                                    fontWeight: 'normal',
+                                },
+                                'pre': {
+                                    backgroundColor: theme('colors.gray[800]'),
+                                    color: theme('colors.gray[200]'),
+                                    padding: theme('spacing.4'),
+                                    borderRadius: theme('borderRadius.md'),
+                                    overflowX: 'auto',
+                                },
+                                'pre code': {
+                                    backgroundColor: 'transparent',
+                                    padding: '0',
+                                    color: 'inherit',
+                                },
+                            },
+                        },
+                    }),
+                }
+            }
+        }
+    </script>
+    <style>
+        .accordion-content {
+            display: none;
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+            max-height: 0;
+        }
+        .accordion-content.open {
+            display: block;
+            max-height: 2000px; /* Adjust as needed for potentially long content */
+        }
+        .accordion-button svg {
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.open svg {
+            transform: rotate(180deg);
+        }
+        .madlib-input {
+            border: 1px solid #ccc;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: 150px; /* Adjust width as needed */
+            margin: 0 4px;
+            font-family: monospace;
+        }
+        .madlib-answer {
+            font-weight: bold;
+            color: #059669; /* Tailwind green-600 */
+            margin-left: 5px;
+            display: none; /* Initially hidden */
+        }
+        /* Enhanced code block styling */
+        code {
+            position: relative;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s ease;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+        code:hover {
+            background-color: #5283b4c7; /* slightly highlight on hover */
+        }
+        pre {
+            position: relative;
+            max-width: 100%;
+            overflow-x: auto;
+            border-radius: 0.375rem;
+            margin: 1rem 0;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #475569;
+        }
+        pre code {
+            display: block;
+            padding: 1rem;
+            line-height: 1.5;
+            background-color: transparent;
+            color: inherit;
+            overflow-x: auto;
+            tab-size: 2;
+        }
+        .code-wrapper {
+            position: relative;
+            margin: 1rem 0;
+        }
+        .inline-code {
+            position: relative;
+            cursor: pointer;
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+        }
+        .copy-button {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+        .copy-button:hover {
+            opacity: 1 !important;
+        }
+        .inline-copy-button {
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+        .inline-copy-button:hover {
+            opacity: 1;
+        }
+        .qr-placeholder {
+            border: 2px dashed #ccc;
+            background-color: #f9f9f9;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin: 1em auto;
+        }
+    </style>
+</head>
+<body class='bg-slate-100 py-8'>
+    <div class='mx-auto max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden'>
+        <header class="bg-gray-800 text-white p-6">
+            <h1 class='text-3xl font-bold'>AI Literacy Lab: Hands-On Prompting</h1>
+            <p>An brief guide to AI prompting for academics and instructors</p>
+        </header>
+
+        <div class="p-6 prose max-w-none prose-slate">
+
+            <!-- Introductory Framing Content -->
+            <div class="mb-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+            <div class="flex items-center mb-4">
+                <img src="images/openrouter.png" alt="OpenRouter Logo" class="h-12 w-auto mr-4">
+                <h5 class="text-2xl font-semibold text-blue-800 mt-0">Welcome!</h5>
+            </div>
+            <p class="text-lg mb-4">This lab covers key concepts in Large Language Model (LLM) prompting and techniques for interacting with AI models, with a particular focus on historical research and transcription tasks.</p>
+            <h3 class="text-xl font-semibold text-blue-700 mt-4 mb-2">Roadmap</h3>
+            <ul class="list-disc list-inside space-y-1 mb-4">
+                <li><strong>Mad-Lib Warm-Up:</strong> A fun introduction to core terminology.</li>
+                <li><strong>OpenRouter Guide:</strong> Setting up your environment to interact with models.</li>
+                <li><strong>Prompting Exercises:</strong> Hands-on tasks to practice prompting techniques.
+                    <ul class="list-circle list-inside ml-4">
+                        <li>Task 1: Document Completion</li>
+                        <li>Task 2: Document Understanding (using vision models)</li>
+                    </ul>
+                </li>
+                <li><strong>Model Comparisons:</strong> Review output differences between models analyzing the same documents.
+                    <ul class="list-circle list-inside ml-4">
+                        <li>Example 1: Handwritten recipe card</li>
+                        <li>Example 2: Engraved image and poem</li>
+                    </ul>
+                </li>
+                <li><strong>AI-LLM Glossary:</strong> Key terms for understanding LLMs.</li>
+            </ul>
+            </div>
+            <!-- End Introductory Framing Content -->
+
+            <div class="space-y-4" id="accordion-container">
+
+                <!-- Accordion Item 1: Mad-Lib Warm-Up -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-cyan-100 hover:bg-cyan-200 focus:outline-none">
+                        <span class="font-semibold text-lg">Mad-Lib Warm-Up</span>
+                        <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <p>A short, playful tour of language-model concepts that you can reuse in research workflows.</p>
+                        <p><strong>Term-Bank:</strong></p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <code class="bg-gray-100 p-1 rounded">API</code>
+                            <code class="bg-gray-100 p-1 rounded">Batch Prompting</code>
+                            <code class="bg-gray-100 p-1 rounded">Model</code>
+                            <code class="bg-gray-100 p-1 rounded">Prompt</code>
+                            <code class="bg-gray-100 p-1 rounded">Training Data</code>
+                            <code class="bg-gray-100 p-1 rounded">Embeddings</code>
+                            <code class="bg-gray-100 p-1 rounded">System Message</code>
+                            <code class="bg-gray-100 p-1 rounded">Temperature</code>
+                            <code class="bg-gray-100 p-1 rounded">Top-p</code>
+                            <code class="bg-gray-100 p-1 rounded">Tokens</code>
+                        </div>
+
+                        <h4 class="font-semibold mt-4">Mad-Lib: Anatomy of a Prompt</h4>
+                        <div id="madlib-section">
+                            <p>
+                                A(n) <input type="text" class="madlib-input" data-answer="Prompt"> begins with a <input type="text" class="madlib-input" data-answer="System Message"> that tells the <input type="text" class="madlib-input" data-answer="Model"> which role to play.
+                                <span class="madlib-answer">[Prompt]</span>
+                                <span class="madlib-answer">[System Message]</span>
+                                <span class="madlib-answer">[Model]</span>
+                            </p>
+                            <p>
+                                By lowering <input type="text" class="madlib-input" data-answer="Temperature"> or <input type="text" class="madlib-input" data-answer="Top-p">, you shrink the model’s creative range.
+                                <span class="madlib-answer">[Temperature]</span>
+                                <span class="madlib-answer">[Top-p]</span>
+                            </p>
+                            <p>
+                                Once authenticated with a secret key, the request travels through an <input type="text" class="madlib-input" data-answer="API">.
+                                <span class="madlib-answer">[API]</span>
+                                <p>
+                                After slicing language from your prompt into<input type="text" class="madlib-input" data-answer="Tokens">, the AI system consults its <input type="text" class="madlib-input" data-answer="Training Data"> to predict the next steps in the sequence based on mathematical vectors called <input type="text" class="madlib-input" data-answer="Embeddings">.
+                                <span class="madlib-answer">[Tokens]</span>
+                                <span class="madlib-answer">[Training Data]</span>
+                                <span class="madlib-answer">[Embeddings]</span>
+                                </p>
+                                <p>
+                                Even so gym class heroes like to speed things up with <input type="text" class="madlib-input" data-answer="Batch Prompting">.
+                                <span class="madlib-answer">[Batch Prompting]</span>
+                                </p>
+                            <button id="show-answers-btn" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none">Show Answers</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Accordion Item 2: OpenRouter Guide -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-emerald-100 hover:bg-emerald-200 focus:outline-none">
+                        <span class="font-semibold text-lg">OpenRouter Sandbox Guide</span>
+                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <p><em>Scanning opens the provisioned OpenRouter chat.</em></p>
+                        <h4 class="font-semibold mt-4">API Provider: Fields & Defaults</h4>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li>Navigate to the <a href="https://web.chatboxai.app/">Chatbox web portal</a></li>
+                            <li>Head to "Settings" in the lower left corner</li>
+                            <li>Click "Model Provider" then "Add Custom Provider"</li>
+                            <li><strong>Add Name</strong>: OpenRouter</li>
+                            <li><strong>Add API Host</strong>: https://openrouter.ai/api/v1/chat/completions</li>
+                            <li><strong>Add API Key</strong>: <span class="cursor-pointer text-blue-600 hover:underline" onclick="toggleApiVisibility(this)">Click to add API Host</span>
+                                <span class="hidden api-host-value"> 
+                                    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                                
+                                </span>
+                            </li>
+
+                            <script>
+                            function toggleApiVisibility(element) {
+                                const apiValue = element.nextElementSibling;
+                                if (apiValue.classList.contains('hidden')) {
+                                    apiValue.classList.remove('hidden');
+                                    element.textContent = "Hide API Host";
+                                    element.classList.add('text-red-600');
+                                } else {
+                                    apiValue.classList.add('hidden');
+                                    element.textContent = "Click to reveal API Host";
+                                    element.classList.remove('text-red-600');
+                                }
+                            }
+                            </script>
+                            <li><strong>Add Model</strong>: Choose or paste an ID (see below)</li>
+                            <li><strong>Adjust Max Tokens in Context</strong>: Optional cap. Prevents runaway length and saves credits</li>
+                            <li><strong>Adjust Temperature or Top-p</strong>: 0.2–1.0 sliders (lower values → crisp summaries; higher → creative drafts)</li>
+                            <li>Click <strong>Save</strong></li>
+                        </ol>
+                        <h4 class="font-semibold mt-4">Ready-to-Try Model IDs</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>openai/gpt-4o</strong>: Flagship large language model from OpenAI</li>
+                            <li><strong>anthropic/claude-3-sonnet</strong>: Flagship large language model from Anthropic</li>
+                            <li><strong>google/gemini-pro-vision</strong>: Vision language model for extracting images + text together from Google</li>
+                            <li><strong>mistralai/pixtral-large-2411</strong>: Vision language model built on top of <strong>mistral-large-2411</strong> from MistralAI</li>
+                            <li><strong>mistralai/pixtral-12b</strong>: Fast, lightweight vision language model for documenting understanding from Mistral AI</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 3: Prompting Exercises -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-amber-100 hover:bg-amber-200 focus:outline-none">
+                        <span class="font-semibold text-lg">Prompting Exercises</span>
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <h4 class="font-semibold mt-4">Task 1: Document Completion</h4>
+                        <ol class="list-decimal list-inside space-y-2 mb-4">
+                            <li>Paste a paragraph from a primary source</li>
+                            <li>Prompt:
+                                <pre><code>Complete the paragraph based on this incomplete excerpt from a primary source:</span>[insert-primary-source]</code></pre>
+                            </li>
+                            <li>Repeat with Temperature 0.2 vs 0.7 vs 1.0 and note changes</li>
+                        </ol>
+                        
+                        <div class="pl-7 -mt-2 mb-6">
+                            <figure class="w-full">
+                                <img src="images/temperature.png" alt="Comparison of output between temperature 0.2 (deterministic) and 0.8 (creative)" class="border rounded-lg shadow-sm my-2 max-w-full w-full">
+                                <figcaption class="text-left text-sm text-gray-600 mt-2">
+                                    <strong>Temperature comparison:</strong> The same prompt yields different outputs at different temperature settings. 
+                                    Lower values (0.2) produce more consistent, focused responses while higher values (0.8) introduce more creativity and variation.
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <h4 class="font-semibold mt-4">Task 2: Document Understanding</h4>
+                        <ol class="list-decimal list-inside space-y-2 mb-4">
+                            <li>Find the image of a historical document</li>
+                            <li>Enter one of these IDs in the Model field:
+                                <ul class="list-disc list-inside ml-4">
+                                    <li>openai/gpt-4o</li>
+                                    <li>anthropic/claude-3-sonnet</li>
+                                    <li>google/gemini-pro-vision</li>
+                                    <li>mistralai/pixtral-12b</li>
+                                </ul>
+                            </li>
+                            <li>Edit the system message for the task:
+                                <pre><code>You are an advanced OCR processing tool for parsing and transcribing historical materials with mixed media, multiple formats, and/or challenging handwriting.</code></pre>
+                            </li>
+                            <li>Paste the following "seed input" and attach your image:
+                                <pre><code>Transcribe the attached image of the document with alt-text for mixed media or embedded images, filling as Dublin Core fields where present and grounded in the input file, which the user will provide.</code></pre>
+                            </li>
+                        </ol>
+
+                    </div>
+                </div>
+
+                <!-- Accordion Item 5: Comparing Model Outputs -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-rose-100 hover:bg-rose-200 focus:outline-none">
+                        <span class="font-semibold text-lg">Comparing Model Outputs</span>
+                        <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <h4 class="font-semibold mt-4">Advanced Examples: Comparing Model Outputs</h4>
+                        <p>Testing examples made from Chatbox HTML exports to see how different vision models stack up against actual sources.</p>
+
+                        <div class="mt-4 p-4 border rounded-md bg-gray-50">
+                            <h5 class="font-semibold text-md mb-2">Example 1: Handwritten Recipe Card</h5>
+                            <p class="mb-2">This example shows how various models transcribe and analyze a handwritten recipe card ("Pecan Butterballs Cookies"). Observe differences in transcription accuracy, alt text generation, and Dublin Core field extraction, especially with challenging handwriting.</p>
+                            <a href="recipe.html" target="_blank" class="text-blue-600 hover:underline">View Recipe Comparison</a>
+                            <img src="images/recipe.jpg" alt="Thumbnail of Pecan Butterballs Recipe Card" class="mt-2 h-24 w-auto border rounded shadow-sm">
+                        </div>
+
+                        <div class="mt-4 p-4 border rounded-md bg-gray-50">
+                            <h5 class="font-semibold text-md mb-2">Example 2: 18th-Century Satirical Engraving</h5>
+                            <p class="mb-2">This example features an 18th-century engraving ("The Magician, or Bottle Cungerer") with dense text and complex imagery. Compare how models handle historical language, layout complexity, and the extraction of metadata from printed sources.</p>
+                            <a href="magician.html" target="_blank" class="text-blue-600 hover:underline">View Magician Comparison</a>
+                            <img src="images/magician.jpg" alt="Thumbnail of The Magician Engraving" class="mt-2 h-24 w-auto border rounded shadow-sm">
+                        </div>
+
+                        <h5 class="font-semibold text-md mt-6 mb-2">Comparative Analysis & Reflection</h5>
+                        <p>As you review these examples, consider the following points:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-4">
+                            <li><strong>Transcription Accuracy:</strong> Which models were better at reading handwritten vs. printed text? Did any struggle with specific characters or historical language?</li>
+                            <li><strong>Alt Text Quality:</strong> How descriptive and accurate were the generated alt texts? Did they capture the key elements of the images?</li>
+                            <li><strong>Metadata Extraction:</strong> How well did the models identify and fill Dublin Core fields? Did they hallucinate information not present in the source?</li>
+                            <li><strong>Handling Ambiguity:</strong> How did models deal with unclear parts of the images or text?</li>
+                            <li><strong>Formatting and Structure:</strong> Did the models present the information clearly and logically?</li>
+                        </ul>
+                        <p>Reflecting on these differences can help you choose the best model for specific tasks and understand the strengths and weaknesses of current vision-language technology.</p>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 5: AI-LLM Glossary -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-violet-100 hover:bg-violet-200 focus:outline-none">
+                        <span class="font-semibold text-lg">AI-LLM Glossary</span>
+                        <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <!-- Glossary Categories and Improved Definitions -->
+                        <div class="mb-2">
+                            <h5 class="font-semibold text-base text-violet-700 mt-2 mb-1">Key Concepts</h5>
+                            <dl>
+                                <dt><strong>Generative AI</strong></dt>
+                                <dd class="mb-2">A subset of artificial intelligence that involves processing natural language input to generate content (text, images, or music) based on common patterns from training data.</dd>
+
+                                <dt><strong>Large Language Model (LLM)</strong></dt>
+                                <dd class="mb-2">A transformer-based neural network with billions of parameters, trained on vast text corpora to predict and generate language, capable of generalizing to diverse tasks from a prompt alone.</dd>
+
+                                <dt><strong>Vision Language Model (VLM)</strong></dt>
+                                <dd class="mb-2">A model that processes and interprets visual data (images) to extract information, often used in conjunction with LLMs for tasks involving both text and images.</dd>
+
+                                <dt><strong>Training Data</strong></dt>
+                                <dd class="mb-2">Sprawling codex of text and/or image data whose statistical patterns guide the behavior of AI models trained on it.</dd>
+
+                                <dt><strong>Token</strong></dt>
+                                <dd class="mb-2">A small unit of text (often a word or sub-word) that the model processes and predicts sequentially.</dd>
+
+                                <dt><strong>Transformer</strong></dt>
+                                <dd class="mb-2">A neural network architecture that uses self-attention mechanisms to process and generate sequences of data. The 't' in ChatGPT.</dd>
+
+                                <dt><strong>Embedding</strong></dt>
+                                <dd class="mb-2">A vector representation of text that captures semantic meaning and enables similarity comparisons in "semantic space."</dd>
+                            </dl>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="font-semibold text-base text-violet-700 mt-2 mb-1">Prompting Methods</h5>
+                            <dl>
+                                <dt><strong>Prompt</strong></dt>
+                                <dd class="mb-2">The explicit instruction or input you provide to a language model to elicit a response.</dd>
+
+                                <dt><strong>Role Assignment</strong></dt>
+                                <dd class="mb-2">Specifying the persona or function the model should adopt (e.g., "You are a skeptical archivist").</dd>
+
+                                <dt><strong>System Message</strong></dt>
+                                <dd class="mb-2">A special instruction at the start of a conversation that sets persistent rules and behavior for the model, distinct from user prompts. Example: "You are a helpful assistant that provides concise answers."</dd>
+
+                                <dt><strong>Temperature</strong></dt>
+                                <dd class="mb-2">A sampling parameter (0–2) that controls output randomness: lower values (e.g., 0.2) make responses more focused and deterministic, while higher values (e.g., 0.8) increase creativity and diversity.</dd>
+
+                                <dt><strong>Top-p</strong></dt>
+                                <dd class="mb-2">A probability threshold for sampling where the model considers tokens whose cumulative probability exceeds this value to strike a balance between common and diverse outputs.</dd>
+                            </dl>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="font-semibold text-base text-violet-700 mt-2 mb-1">Advanced Techniques</h5>
+                            <dl>
+                                <dt><strong>Prompt Engineering</strong></dt>
+                                <dd class="mb-2">The systematic practice of designing, testing, and refining prompts to achieve specific outputs, using established patterns and iterative strategies.</dd>
+
+                                <dt><strong>Fine-Tuning</strong></dt>
+                                <dd class="mb-2">Further training a pre-trained model on custom labeled data to specialize its behavior for particular tasks.</dd>
+
+                                <dt><strong>Batch Prompting</strong></dt>
+                                <dd class="mb-2">A method for submitting multiple prompt variations at once to compare outputs efficiently, supporting systematic experimentation and research.</dd>
+                            </dl>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="font-semibold text-base text-violet-700 mt-2 mb-1">Infrastructure & Implementation</h5>
+                            <dl>
+                                <dt><strong>API</strong></dt>
+                                <dd class="mb-2">Application Programming Interface – a standardized set of protocols that allows different software to communicate, enabling users to interact with models through well-defined request/response patterns.</dd>
+
+                                <dt><strong>API Key</strong></dt>
+                                <dd class="mb-2">A unique code used to authenticate and authorize access to an API, ensuring secure and controlled usage of model services.</dd>
+
+                                <dt><strong>Model Provider</strong></dt>
+                                <dd class="mb-2">The organization or platform that hosts and provides access to a specific AI model via an API.</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/madlib.js"></script>
+    <script src="js/code-copy.js"></script>
+</body>
+</html>
