@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import SequenceNavigation from './components/SequenceNavigation';
+import React, { useState } from 'react';
 import KeyTermsFooter from './components/KeyTermsFooter';
 import NavigationControls from './components/NavigationControls';
 import StepIndicator from './components/StepIndicator';
 
 // Step components
-import WelcomeStep from './components/steps/WelcomeStep';
 import RoadmapStep from './components/steps/RoadmapStep';
 import MadLibStep from './components/steps/MadLibStep';
 import OpenRouterStep from './components/steps/OpenRouterStep';
@@ -16,14 +14,6 @@ import GlossaryStep from './components/steps/GlossaryStep';
 const App = () => {
   // Define the sequence steps with shorter titles for the menu
   const steps = [
-    {
-      id: 'welcome',
-      title: 'Welcome',
-      shortTitle: 'Welcome',
-      component: WelcomeStep,
-      keyTerms: [],
-      hideInNavigation: true
-    },
     { 
       id: 'roadmap', 
       title: 'Module Roadmap',
@@ -103,22 +93,14 @@ const App = () => {
         </header>
 
         <div className="p-6 prose max-w-none prose-slate">
-
-          {/* Sequence Navigation (as breadcrumbs) */}
-          <SequenceNavigation 
-            steps={steps.filter(step => !step.hideInNavigation)}
-            currentIndex={currentStepIndex > 0 ? currentStepIndex - 1 : 0}
-            onNavigate={(index) => goToStep(index + 1)}
-          />
           
-          {/* Step Indicator (visual progress bar) - Don't show for welcome step */}
-          {currentStepIndex > 0 && (
-            <StepIndicator 
-              currentStep={currentStepIndex - 1}
-              totalSteps={steps.length - 1}
-              steps={steps.filter(step => !step.hideInNavigation)}
-            />
-          )}
+          {/* Enhanced Step Indicator with navigation */}
+          <StepIndicator 
+            currentStep={currentStepIndex}
+            totalSteps={steps.length}
+            steps={steps}
+            onNavigate={(index) => goToStep(index)}
+          />
 
           {/* Current Step Content - All steps rendered side by side with horizontal transitions */}
           <div className="phase-sequence mb-8">

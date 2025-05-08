@@ -1,38 +1,66 @@
 import React from 'react';
 
-const StepIndicator = ({ currentStep, totalSteps, steps }) => {
+const StepIndicator = ({ currentStep, totalSteps, steps, onNavigate }) => {
   const progressPercentage = (currentStep / (totalSteps - 1)) * 100;
 
   return (
-    <div className="step-indicator mb-8">
-      <div className="progress-bar">
+    <div className="step-indicator mb-8 bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+      {/* Progress Bar */}
+      <div className="progress-bar h-1.5 bg-gray-200 rounded-full overflow-hidden mb-4">
         <div 
-          className="progress-fill"
+          className="progress-fill h-full bg-blue-600 transition-all duration-500 ease-in-out"
           style={{ width: `${progressPercentage}%` }}
         />
       </div>
       
-      <div className="flex justify-between">
+      {/* Step Buttons */}
+      <div className="flex justify-between relative">
+        {/* Connection lines between steps */}
+        <div className="absolute top-5 left-0 right-0 h-0.5 bg-gray-200" style={{ zIndex: 0 }}></div>
+        
         {steps.map((step, index) => {
           // Determine if the step is active, completed, or upcoming
           const isActive = index === currentStep;
           const isCompleted = index < currentStep;
+          const isClickable = isCompleted || index === currentStep + 1; // Can click completed steps or next step
+          
+          // Determine classes based on state
+          const bubbleClasses = `
+            step-bubble w-10 h-10 rounded-full flex items-center justify-center 
+            transition-all duration-300 ease-in-out
+            ${isActive ? 'bg-blue-600 text-white' : 
+              isCompleted ? 'bg-green-100 text-green-700 border-2 border-green-500' : 
+              'bg-gray-100 text-gray-500 border border-gray-300'}
+            ${isClickable ? 'cursor-pointer hover:shadow-md' : ''}
+            relative z-10
+          `;
+          
+          const labelClasses = `
+            step-label text-xs font-medium mt-2 text-center
+            ${isActive ? 'text-blue-700' : 
+              isCompleted ? 'text-green-700' : 
+              'text-gray-500'}
+          `;
           
           return (
             <div 
               key={step.id} 
-              className={`step-item flex flex-col items-center ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
+              className="step-item flex flex-col items-center"
             >
-              <div className="step-bubble rounded-full flex items-center justify-center">
+              <div 
+                className={bubbleClasses}
+                onClick={() => isClickable ? onNavigate(index) : null}
+                title={isClickable ? `Go to ${step.title}` : ''}
+              >
                 {isCompleted ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 ) : (
-                  index + 1
+                  <span className="font-semibold">{index + 1}</span>
                 )}
               </div>
-              <span className="step-label text-xs mt-1 text-center">
+              <span className={labelClasses}>
                 {step.shortTitle || step.title}
               </span>
             </div>
