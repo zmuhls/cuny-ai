@@ -26,7 +26,7 @@ const App = () => {
       title: 'Mad-Lib Warm-Up',
       shortTitle: 'Mad-Lib',
       component: MadLibStep,
-      keyTerms: ['Prompt', 'System Message', 'Model', 'Temperature', 'Tokens', 'Training Data', 'Computer Vision', 'Large Language Model']
+      keyTerms: ['API', 'Key', 'Embeddings', 'Model', 'Output', 'Prompt', 'System Message', 'Temperature', 'Tokens', 'Training Data']
     },
     { 
       id: 'openrouter', 
