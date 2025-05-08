@@ -1,4 +1,5 @@
 import React from 'react';
+import KeyTermsFooter from '../KeyTermsFooter';
 
 const PromptingExercisesStep = () => {
   return (
@@ -67,6 +68,11 @@ const PromptingExercisesStep = () => {
             <div className="bg-gray-50 border border-gray-200 rounded p-3 my-2 font-mono text-sm text-gray-800 whitespace-pre-wrap">Transcribe the attached image of the document with alt-text for mixed media or embedded images, filling as Dublin Core fields where present and grounded in the input file, which the user will provide.</div>
           </li>
         </ol>
+      </div>
+      
+      {/* Footer with key terms */}
+      <div className="mt-6 mb-4 border-t border-gray-200 pt-4">
+        <KeyTermsFooter terms={['Document Completion', 'Document Understanding', 'OCR', 'Temperature', 'Vision Language Model']} />
       </div>
     </div>
   );

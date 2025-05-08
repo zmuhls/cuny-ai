@@ -159,6 +159,34 @@ const GlossaryStep = () => {
       <div className="content-module">
         <h3>Advanced Techniques</h3>
         <div className="space-y-3 mt-2">
+          <div className="border-l-4 border-green-400 pl-3 py-1" data-term="document-completion" id="term-document-completion">
+            <h4 className="text-green-800 font-medium flex items-center group">
+              <a href="#term-document-completion" className="flex items-center hover:text-green-600">
+                Document Completion
+                <span className="opacity-0 group-hover:opacity-100 ml-2 text-green-400 text-xs transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </span>
+              </a>
+            </h4>
+            <p className="text-sm text-gray-700">The task of auto-completing partial documents or filling in missing sections of text with contextually appropriate content, often using language models to ensure coherence with existing content.</p>
+          </div>
+          
+          <div className="border-l-4 border-green-400 pl-3 py-1" data-term="document-understanding" id="term-document-understanding">
+            <h4 className="text-green-800 font-medium flex items-center group">
+              <a href="#term-document-understanding" className="flex items-center hover:text-green-600">
+                Document Understanding
+                <span className="opacity-0 group-hover:opacity-100 ml-2 text-green-400 text-xs transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </span>
+              </a>
+            </h4>
+            <p className="text-sm text-gray-700">The ability of AI systems to process, analyze, and extract meaningful information from documents, including contextual relationships, key points, and semantic content.</p>
+          </div>
+          
           <div className="border-l-4 border-green-400 pl-3 py-1" data-term="prompt-engineering" id="term-prompt-engineering">
             <h4 className="text-green-800 font-medium flex items-center group">
               <a href="#term-prompt-engineering" className="flex items-center hover:text-green-600">

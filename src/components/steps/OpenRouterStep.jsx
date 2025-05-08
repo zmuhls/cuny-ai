@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import KeyTermsFooter from '../KeyTermsFooter';
 
 const OpenRouterStep = () => {
   const [apiVisible, setApiVisible] = useState(false);
@@ -96,6 +97,11 @@ const OpenRouterStep = () => {
             </li>
           </ul>
         </div>
+      </div>
+      
+      {/* Footer with key terms */}
+      <div className="mt-6 mb-4 border-t border-gray-200 pt-4">
+        <KeyTermsFooter terms={['API', 'API Key', 'Model Provider', 'Temperature', 'Document Completion', 'Document Understanding']} />
       </div>
     </div>
   );

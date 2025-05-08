@@ -10,11 +10,11 @@ _An interactive guide to language model concepts and prompting techniques._
 
 ## Features
 
-- **Enhanced Mobile Responsiveness**: Fully optimized for all devices including narrow iPhone screens, with improved layouts for complex components and better text readability
+- **Enhanced Mobile Responsiveness**: Fully optimized for all devices including narrow iPhone screens, with improved layouts for complex components, better text readability, and fluid text flow for interactive exercises
 - **Interactive Navigation**: Step-by-step interface with progress tracking and touch-friendly controls
 - **Linked Key Terms**: Click any key term to navigate directly to its definition in the glossary with a smooth scrolling effect and visual highlight
 - **Visual Examples**: Compare outputs from different vision models analyzing historical documents
-- **Card-Based Layouts**: Mobile-optimized card layouts for better organization of complex content
+- **Card-Based Layouts**: Mobile-optimized card layouts for better organization of complex content with consistent styling across sections
 - **Responsive Form Elements**: Adaptive input fields that work well across all screen sizes
 
 ## Content Sections
@@ -165,6 +165,8 @@ When reviewing model outputs, consider these comparison points:
 
 ## Recent Updates
 
+- **Standardized Card Design**: Implemented consistent card-based UI across all sections including Analysis Guide and Model IDs
+- **Improved Mad-Lib Exercise Flow**: Redesigned for natural paragraph flow avoiding awkward line breaks on mobile
 - **Proper Tailwind CSS Production Setup**: Removed CDN reference in favor of the PostCSS plugin approach for better production performance
 - **TypeScript Integration**: Added TypeScript support for improved type safety and developer experience
 - **Mobile Optimization**: Enhanced responsiveness for mobile devices with better space utilization

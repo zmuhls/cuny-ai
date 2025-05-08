@@ -71,6 +71,10 @@ const App = () => {
   const goToStep = (index) => {
     if (index >= 0 && index < steps.length) {
       setCurrentStepIndex(index);
+      // Scroll to top after changing step
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100); // Small delay to ensure component change occurs first
     }
   };
   
@@ -143,12 +147,20 @@ const App = () => {
   const goToNextStep = () => {
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
+      // Scroll to top after changing step
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100); // Small delay to ensure component change occurs first
     }
   };
   
   const goToPreviousStep = () => {
     if (currentStepIndex > 0) {
       setCurrentStepIndex(currentStepIndex - 1);
+      // Scroll to top after changing step
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100); // Small delay to ensure component change occurs first
     }
   };
 
