@@ -19,7 +19,7 @@ const App = () => {
       title: 'Module Roadmap',
       shortTitle: 'Roadmap',
       component: RoadmapStep,
-      keyTerms: ['Learning Path', 'Module Structure', 'Skill Development']
+      keyTerms: []
     },
     { 
       id: 'madlib', 

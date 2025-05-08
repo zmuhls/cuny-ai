@@ -31,9 +31,14 @@ const PromptingExercisesStep = () => {
         
         <figure className="w-full">
           <img 
-            src="images/temperature.png" 
+            src="/cuny-ai/images/temperature.png" 
             alt="Comparison of output between temperature settings" 
             className="border rounded-lg shadow-sm my-2 max-w-full w-full"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://raw.githubusercontent.com/username/cuny-ai/main/images/temperature.png"; 
+              // Fallback to GitHub raw content if local path fails
+            }}
           />
           <figcaption className="text-sm text-gray-500 mt-1">
             <strong>Temperature comparison:</strong> Lower values (0.2) produce more consistent, focused responses while higher values (0.8) introduce more creativity and variation.

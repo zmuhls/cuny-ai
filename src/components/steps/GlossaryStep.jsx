@@ -7,7 +7,15 @@ const GlossaryStep = () => {
         <h3>AI-LLM Glossary</h3>
         <p className="text-gray-600">Key terms and concepts for understanding language model technology.</p>
         <div className="flex items-center mt-2">
-          <img src="images/model.png" alt="AI Model" className="h-8 w-auto mr-2 opacity-70" />
+          <img 
+            src="/cuny-ai/images/model.png" 
+            alt="AI Model" 
+            className="h-8 w-auto mr-2 opacity-70" 
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://raw.githubusercontent.com/username/cuny-ai/main/images/model.png";
+            }}
+          />
           <span className="text-sm text-gray-500">A reference guide to essential AI terminology</span>
         </div>
       </div>

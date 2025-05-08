@@ -22,7 +22,7 @@ const StepIndicator = ({ currentStep, totalSteps, steps, onNavigate }) => {
           // Determine if the step is active, completed, or upcoming
           const isActive = index === currentStep;
           const isCompleted = index < currentStep;
-          const isClickable = isCompleted || index === currentStep + 1; // Can click completed steps or next step
+          const isClickable = true; // Allow navigation to any step
           
           // Determine classes based on state
           const bubbleClasses = `

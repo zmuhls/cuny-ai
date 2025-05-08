@@ -13,7 +13,21 @@ const OpenRouterStep = () => {
         <h3>OpenRouter API Guide</h3>
         <p className="text-gray-600"><em>Scanning opens the provisioned OpenRouter chat.</em></p>
         <div className="flex items-center mt-2">
-          <span className="text-3xl mr-2" role="img" aria-label="API">🔌</span>
+          <img 
+            src="/cuny-ai/images/openrouter.png" 
+            alt="OpenRouter" 
+            className="h-8 w-auto mr-2" 
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://raw.githubusercontent.com/username/cuny-ai/main/images/openrouter.png";
+              // Fallback to emoji if image fails
+              if (e.target.src.includes("username") || e.target.naturalWidth === 0) {
+                e.target.style.display = "none";
+                e.target.nextElementSibling.style.display = "inline";
+              }
+            }}
+          />
+          <span className="text-3xl mr-2" role="img" aria-label="API" style={{display: "none"}}>🔌</span>
           <span className="text-sm text-gray-500">Connect multiple LLM providers with one API</span>
         </div>
       </div>

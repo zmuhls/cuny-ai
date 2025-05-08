@@ -89,7 +89,7 @@
   
   /* Step Container styling - Dynamic sizing */
   .step-container {
-    width: 100%;
+    width: 94%; /* Slightly narrower to create space */
     /* Use auto height to adapt to content */
     height: auto !important; /* Force auto height */
     min-height: 200px;
@@ -100,7 +100,11 @@
     /* Ensure overflow is visible */
     overflow: visible;
     /* Add padding to prevent content from touching edges */
-    padding: 1rem;
+    padding: 2rem;
+    margin: 0 auto; /* Center the container */
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
   /* Enhanced Step Indicator Component Styles */
