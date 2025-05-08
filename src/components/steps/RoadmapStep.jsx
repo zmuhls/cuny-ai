@@ -40,7 +40,7 @@ const RoadmapStep = () => {
       </div>
       
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
-        <h4 className="text-lg font-medium text-gray-800 mb-4">Module Curriculum</h4>
+        <h4 className="text-lg font-medium text-gray-800 mb-4">Steps in the Sequence</h4>
         
         <div className="space-y-6">
           <div className="flex">
