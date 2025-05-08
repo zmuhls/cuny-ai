@@ -14,5 +14,16 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        recipe: path.resolve(__dirname, 'pages/recipe.html'),
+        magician: path.resolve(__dirname, 'pages/magician.html')
+      }
+    }
   }
 })

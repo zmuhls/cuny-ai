@@ -32,7 +32,7 @@ const MadLibStep = () => {
     'input-2': 'Model',
     'input-3': 'Temperature',
     'input-4': 'API',
-    'input-5': 'API Key',
+    'input-5': 'Key',
     'input-6': 'Tokens',
     'input-7': 'Training Data',
     'input-8': 'Embeddings',
@@ -42,7 +42,7 @@ const MadLibStep = () => {
   // Term bank for learners (alphabetical for readability)
   const allTerms = [
     'API',
-    'API Key',
+    'Key',
     'Embeddings',
     'Model',
     'Output',
@@ -101,8 +101,19 @@ const MadLibStep = () => {
   const getPlaceholder = (index) =>
     answersVisible ? answers[`input-${index}`] : `Term #${index + 1}`;
 
-  // Footer key terms (same as term bank for quick reference)
-  const keyTerms = allTerms;
+  // Footer key terms - explicitly set to match the Term Bank
+  const keyTerms = [
+    'API',
+    'Key',
+    'Embeddings',
+    'Model',
+    'Output',
+    'Prompt',
+    'System Message',
+    'Temperature',
+    'Tokens',
+    'Training Data'
+  ];
 
   return (
     <div>
