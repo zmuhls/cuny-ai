@@ -6,7 +6,22 @@ const WelcomeStep = () => {
       {/* Main Home Welcome Banner */}
       <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg">
         <div className="flex items-center mb-4">
-          <img src="images/openrouter.png" alt="OpenRouter Logo" className="h-16 w-auto mr-4" />
+          <div className="h-16 w-16 mr-4 flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className="h-full w-full">
+              <rect width="100" height="100" rx="15" fill="#1E40AF" />
+              <circle cx="25" cy="25" r="8" fill="#ffffff" opacity="0.9" />
+              <circle cx="75" cy="30" r="6" fill="#ffffff" opacity="0.9" />
+              <circle cx="65" cy="70" r="7" fill="#ffffff" opacity="0.9" />
+              <circle cx="30" cy="65" r="5" fill="#ffffff" opacity="0.9" />
+              <circle cx="50" cy="45" r="9" fill="#ffffff" opacity="0.9" />
+              <line x1="25" y1="25" x2="50" y2="45" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
+              <line x1="75" y1="30" x2="50" y2="45" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
+              <line x1="65" y1="70" x2="50" y2="45" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
+              <line x1="30" y1="65" x2="50" y2="45" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
+              <line x1="30" y1="65" x2="65" y2="70" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
+              <line x1="25" y1="25" x2="75" y2="30" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
+            </svg>
+          </div>
           <h1 className="text-3xl font-bold text-blue-800 mt-0">AI Literacy Lab</h1>
         </div>
         <h2 className="text-2xl font-semibold text-indigo-700 mb-4">Hands-On Prompting for Academic Workflows</h2>

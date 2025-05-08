@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/cuny-ai/', // Add base URL for GitHub Pages
+  publicDir: 'public', // Ensure public assets are included in the build
   server: {
     open: true
   }

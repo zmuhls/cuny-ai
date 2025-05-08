@@ -13,7 +13,7 @@ const OpenRouterStep = () => {
         <h3>OpenRouter API Guide</h3>
         <p className="text-gray-600"><em>Scanning opens the provisioned OpenRouter chat.</em></p>
         <div className="flex items-center mt-2">
-          <img src="images/openrouter.png" alt="OpenRouter Logo" className="h-8 w-auto mr-2 opacity-70" />
+          <span className="text-3xl mr-2" role="img" aria-label="API">🔌</span>
           <span className="text-sm text-gray-500">Connect multiple LLM providers with one API</span>
         </div>
       </div>
