@@ -66,11 +66,11 @@ const ModelComparisonsStep = () => {
         </div>
       </div>
       
-      <div className="content-module">
-        <h3 className="text-center">Analysis Guide</h3>
-        <p className="text-gray-600 mb-3 text-center">As you review the examples, consider these comparison points:</p>
+      <div className="content-module text-left">
+        <h3>Analysis Guide</h3>
+        <p className="text-gray-600 mb-3">As you review the examples, consider these comparison points:</p>
         
-        <div className="bg-gray-50 p-4 rounded border border-gray-200 mt-2 mx-auto max-w-4xl">
+        <div className="bg-gray-50 p-4 rounded border border-gray-200 mt-2 ml-0 max-w-4xl">
           <ul className="list-none grid gap-3 sm:gap-2 grid-cols-1">
             <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">

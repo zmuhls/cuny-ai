@@ -168,7 +168,7 @@ const App = () => {
     <div className='bg-slate-100 py-4 sm:py-8'>
       <div className='mx-auto w-full max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden'>
         <header className="bg-gray-800 text-white p-3 sm:p-6">
-          <h1 className='text-xl sm:text-3xl font-bold'>AI Literacy Lab: Hands-On Prompting</h1>
+          <h1 className='text-xl sm:text-3xl font-bold'>AI Prompting in Praxis</h1>
           <p className="text-sm sm:text-base mt-1">
             A brief guide to language model prompting for academics and instructors 
             <span className="hidden sm:inline"> | </span>

@@ -107,9 +107,9 @@ const MadLibStep = () => {
   return (
     <div>
       <div className="content-module">
-        <h3 className="text-center">Mad Lib: Fill in the Blank (Cline Edition)</h3>
-        <p className="text-gray-600 text-center mx-auto max-w-xl">
-          A concise tour through language‑model anatomy—adapted for Cline’s instructional flow.
+        <h3>Mad Lib: Fill in the Blank</h3>
+        <p className="text-gray-600 max-w-xl">
+          <em>A concise tour through the anatomy of a prompt.</em>
         </p>
       </div>
 
@@ -188,15 +188,15 @@ const MadLibStep = () => {
             <p className="mt-2">These instructions keep the conversation coherent and ethical.</p>
           </section>
 
-          {/* 3. Creative Variance & API */}
+          {/* 3. Temperature & API */}
           <section className="bg-white p-4 rounded-lg shadow border border-gray-100 hover:shadow-lg transition-all duration-300">
             <header className="flex items-center mb-3 pb-2 border-b border-gray-50">
               <span className="bg-green-100 text-green-600 p-1.5 rounded-full mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M4 3a1 1 0 000 2h12a1 1 0 100-2H4z" />
+                  <path d="M5 12a1 1 0 102 0V6.414l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L5 6.414V12zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
                 </svg>
               </span>
-              <h4 className="font-medium text-green-700">Creative Variance</h4>
+              <h4 className="font-medium text-green-700">Request Configuration</h4>
             </header>
             <p>By dialing <MadLibInput index={3} value={inputs['input-3'] || ''} onChange={handleInputChange} className={getInputStyles(3)} placeholder={getPlaceholder(3)} /> up or down, users modulate unpredictability before sending the request through an authenticated <MadLibInput index={4} value={inputs['input-4'] || ''} onChange={handleInputChange} className={getInputStyles(4)} placeholder={getPlaceholder(4)} /> using a unique <MadLibInput index={5} value={inputs['input-5'] || ''} onChange={handleInputChange} className={getInputStyles(5)} placeholder={getPlaceholder(5)} />.</p>
             <p className="mt-2">Security and style travel together in that handshake.</p>
