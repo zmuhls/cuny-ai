@@ -7,6 +7,11 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+# Set permissions
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -33,3 +38,4 @@ jobs:
         with:
           folder: dist # The folder the action should deploy
           branch: gh-pages # The branch the action should deploy to
+          token: ${{ secrets.GITHUB_TOKEN }} # Use built-in GitHub token
