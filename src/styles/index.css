@@ -2,6 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile responsiveness overrides - Enhanced for better space utilization */
+@media (max-width: 640px) {
+  html, body {
+    font-size: 15px; /* Slightly smaller base font size on mobile */
+    max-width: 100vw;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  /* Expand containers to use more viewport width */
+  .max-w-5xl {
+    max-width: 98% !important;
+    width: 98% !important;
+  }
+  
+  /* Adjust content modules to be more compact and wider on mobile */
+  .content-module {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Remove excess margin/padding in containers */
+  .p-3, .p-6, .sm\:p-6 {
+    padding: 0.5rem !important;
+  }
+  
+  /* Adjust prose container to use more width */
+  .prose.max-w-none {
+    max-width: 100% !important;
+    padding: 0 0.25rem;
+  }
+
+  /* Adjust headings for mobile */
+  .content-module h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Make interactive elements larger for touch targets */
+  button, 
+  .key-term,
+  .sequence-nav-item,
+  a {
+    min-height: 36px; /* Ensure minimum touch target size */
+  }
+
+  /* Reduce spacing in lists */
+  .space-y-2 {
+    margin-top: 0.25rem;
+  }
+
+  /* Ensure images don't overflow on mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Improve text readability on mobile */
+  p, span, div {
+    line-height: 1.5;
+    word-break: break-word;
+  }
+  
+  /* Better spacing for stacked items in Analysis Guide */
+  .flex.items-start {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+  
+  /* Reduce vertical spacing between elements */
+  .space-y-3, .space-y-4, .space-y-8 {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+  }
+  
+  /* Better handling of long text in cards */
+  .rounded-md p, .rounded-lg p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  
+  /* Ensure glossary terms display well on mobile */
+  .border-l-4 {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Specific mobile optimizations for complex components */
+@media (max-width: 640px) {
+  /* Analysis Guide mobile layout */
+  .content-module .space-y-2 .flex.items-start {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .content-module .space-y-2 .flex.items-start > div {
+    width: fit-content;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Ready-to-Try Model IDs card layout */
+  .grid.gap-3 .border.rounded-md {
+    padding: 0.75rem;
+  }
+  
+  /* Prevent horizontal scrolling */
+  .overflow-x-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Custom styles that we'll migrate from the original styles */
 @layer components {
   .accordion-content {
@@ -40,7 +162,7 @@
     display: none; /* Initially hidden */
   }
 
-  /* Phase sequence styles - Horizontal sequence with dynamic height */
+  /* Phase sequence styles - Improved for dynamic content height and responsive display */
   .phase-sequence {
     position: relative;
     width: 100%;
@@ -50,7 +172,7 @@
     background-color: #f8fafc;
     /* Dynamic height adjustments */
     height: auto !important; /* Force auto height */
-    min-height: 200px; /* Increased minimum height */
+    min-height: unset; /* Remove fixed minimum height */
     display: flex;
     flex-direction: column;
   }
@@ -61,7 +183,7 @@
     width: 100%;
     /* Ensure dynamic height */
     height: auto !important; /* Force auto height */
-    min-height: 200px;
+    min-height: unset;
     overflow: visible; /* Show all content */
   }
 
@@ -70,37 +192,49 @@
     width: 100%;
     /* Dynamic height based on content */
     height: auto !important; /* Force auto height */
-    min-height: 200px;
+    min-height: unset;
     display: flex;
     flex-direction: column;
     overflow: visible; /* Show all content */
   }
 
   .phase-content > div {
-    padding: 1.5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
     /* Allow flex items to grow based on content */
     flex-grow: 1;
     /* Ensure all content is visible */
     overflow: visible;
   }
   
-  /* Step Container styling - Dynamic sizing */
+  /* Content end indicator */
+  .phase-content > div::after {
+    content: "•••";
+    color: #cbd5e1;
+    text-align: center;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: auto;
+    padding-top: 1rem;
+    letter-spacing: 0.5rem;
+  }
+  
+  /* Step Container styling - Optimized for better width utilization and dynamic height */
   .step-container {
-    width: 94%; /* Slightly narrower to create space */
+    width: 98%; /* Use more viewport width */
     /* Use auto height to adapt to content */
     height: auto !important; /* Force auto height */
-    min-height: 200px;
+    min-height: unset; /* Remove fixed minimum height */
     display: flex;
     flex-direction: column;
     /* Allow flex items to grow as needed */
     flex-grow: 1;
     /* Ensure overflow is visible */
     overflow: visible;
-    /* Add padding to prevent content from touching edges */
-    padding: 2rem;
+    /* Reduce padding for more space */
+    padding: 1rem;
     margin: 0 auto; /* Center the container */
     background-color: white;
     border-radius: 0.5rem;
@@ -271,5 +405,18 @@
     border-color: #bfdbfe;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+  }
+  
+  /* Glossary term highlight animation */
+  @keyframes term-highlight-pulse {
+    0% { background-color: rgba(59, 130, 246, 0.1); }
+    50% { background-color: rgba(59, 130, 246, 0.3); }
+    100% { background-color: rgba(59, 130, 246, 0.1); }
+  }
+  
+  .term-highlight {
+    animation: term-highlight-pulse 1s ease-in-out infinite;
+    border-radius: 0.375rem;
   }
 }

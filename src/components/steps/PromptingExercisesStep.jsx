@@ -36,7 +36,7 @@ const PromptingExercisesStep = () => {
             className="border rounded-lg shadow-sm my-2 max-w-full w-full"
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "https://raw.githubusercontent.com/username/cuny-ai/main/images/temperature.png"; 
+              e.target.src = "https://raw.githubusercontent.com/zmuhls/cuny-ai/master/images/temperature.png"; 
               // Fallback to GitHub raw content if local path fails
             }}
           />

@@ -4,9 +4,9 @@ const StepIndicator = ({ currentStep, totalSteps, steps, onNavigate }) => {
   const progressPercentage = (currentStep / (totalSteps - 1)) * 100;
 
   return (
-    <div className="step-indicator mb-8 bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+    <div className="step-indicator mb-4 sm:mb-8 bg-gray-50 p-2 sm:p-4 rounded-lg border border-gray-200 shadow-sm">
       {/* Progress Bar */}
-      <div className="progress-bar h-1.5 bg-gray-200 rounded-full overflow-hidden mb-4">
+      <div className="progress-bar h-1 sm:h-1.5 bg-gray-200 rounded-full overflow-hidden mb-2 sm:mb-4">
         <div 
           className="progress-fill h-full bg-blue-600 transition-all duration-500 ease-in-out"
           style={{ width: `${progressPercentage}%` }}
@@ -16,7 +16,7 @@ const StepIndicator = ({ currentStep, totalSteps, steps, onNavigate }) => {
       {/* Step Buttons */}
       <div className="flex justify-between relative">
         {/* Connection lines between steps */}
-        <div className="absolute top-5 left-0 right-0 h-0.5 bg-gray-200" style={{ zIndex: 0 }}></div>
+        <div className="absolute top-4 sm:top-5 left-0 right-0 h-0.5 bg-gray-200" style={{ zIndex: 0 }}></div>
         
         {steps.map((step, index) => {
           // Determine if the step is active, completed, or upcoming
@@ -26,8 +26,8 @@ const StepIndicator = ({ currentStep, totalSteps, steps, onNavigate }) => {
           
           // Determine classes based on state
           const bubbleClasses = `
-            step-bubble w-10 h-10 rounded-full flex items-center justify-center 
-            transition-all duration-300 ease-in-out
+            step-bubble w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center 
+            transition-all duration-300 ease-in-out text-xs sm:text-sm
             ${isActive ? 'bg-blue-600 text-white' : 
               isCompleted ? 'bg-green-100 text-green-700 border-2 border-green-500' : 
               'bg-gray-100 text-gray-500 border border-gray-300'}
@@ -36,7 +36,7 @@ const StepIndicator = ({ currentStep, totalSteps, steps, onNavigate }) => {
           `;
           
           const labelClasses = `
-            step-label text-xs font-medium mt-2 text-center
+            step-label text-[0.65rem] sm:text-xs font-medium mt-1 sm:mt-2 text-center
             ${isActive ? 'text-blue-700' : 
               isCompleted ? 'text-green-700' : 
               'text-gray-500'}

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 const MadLibStep = () => {
   const [answersVisible, setAnswersVisible] = useState(false);
@@ -157,128 +157,136 @@ const MadLibStep = () => {
           </div>
           
           <div className="border-t border-gray-200 pt-5">
-            <div className="mb-8 text-gray-700 leading-loose space-y-8 font-serif">
-              <p className="mb-5">A(n)
-                <span className="relative inline-block mx-2 my-3 align-middle">
+            <div className="mb-8 text-gray-700 leading-loose space-y-6 sm:space-y-8 font-serif">
+              <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-y-2">
+                <span>A(n)</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-0'] || ''} 
                     onChange={(e) => handleInputChange(e, 0)} 
-                    className={getInputStyles(0)}
+                    className={`w-full sm:w-auto ${getInputStyles(0)}`}
                     style={getInputWidth(0)}
                     placeholder={getPlaceholder(0)}
                   />
                 </span>
-                begins with a
-                <span className="relative inline-block mx-2 my-3 align-middle">
+                <span>begins with a</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-1'] || ''} 
                     onChange={(e) => handleInputChange(e, 1)} 
-                    className={getInputStyles(1)}
+                    className={`w-full sm:w-auto ${getInputStyles(1)}`}
                     style={getInputWidth(1)}
                     placeholder={getPlaceholder(1)}
                   />
                 </span>
-                that tells the
-                <span className="relative inline-block mx-2 my-3 align-middle">
+                <span>that tells the</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-2'] || ''} 
                     onChange={(e) => handleInputChange(e, 2)} 
-                    className={getInputStyles(2)}
+                    className={`w-full sm:w-auto ${getInputStyles(2)}`}
                     style={getInputWidth(2)}
                     placeholder={getPlaceholder(2)}
                   />
                 </span>
-                which role to play.
-              </p>
+                <span>which role to play.</span>
+              </div>
               
-              <p className="mb-5">By lowering
-                <span className="relative inline-block mx-2 my-3 align-middle">
+              <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-y-2">
+                <span>By lowering</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-3'] || ''} 
                     onChange={(e) => handleInputChange(e, 3)} 
-                    className={getInputStyles(3)}
+                    className={`w-full sm:w-auto ${getInputStyles(3)}`}
                     style={getInputWidth(3)}
                     placeholder={getPlaceholder(3)}
                   />
                 </span>
-                or
-                <span className="relative inline-block mx-2 my-3 align-middle">
+                <span>or</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-4'] || ''} 
                     onChange={(e) => handleInputChange(e, 4)} 
-                    className={getInputStyles(4)}
+                    className={`w-full sm:w-auto ${getInputStyles(4)}`}
                     style={getInputWidth(4)}
                     placeholder={getPlaceholder(4)}
                   />
                 </span>
-                , you shrink the model's creative range.
-              </p>
+                <span>, you shrink the model's creative range.</span>
+              </div>
               
-              <p className="mb-5">Once authenticated with a secret key, the request travels through an
-                <span className="relative inline-block mx-2 my-3 align-middle">
+              <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-y-2">
+                <span>Once authenticated with a secret key, the request travels through an</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-5'] || ''} 
                     onChange={(e) => handleInputChange(e, 5)} 
-                    className={getInputStyles(5)}
+                    className={`w-full sm:w-auto ${getInputStyles(5)}`}
                     style={getInputWidth(5)}
                     placeholder={getPlaceholder(5)}
                   />
-                </span>.
-              </p>
+                </span>
+                <span>.</span>
+              </div>
               
-              <p className="mb-5">After slicing language from your prompt into
-                <span className="relative inline-block mx-2 my-3 align-middle">
+              <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-y-2">
+                <span>After slicing language from your prompt into</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-6'] || ''} 
                     onChange={(e) => handleInputChange(e, 6)} 
-                    className={getInputStyles(6)}
+                    className={`w-full sm:w-auto ${getInputStyles(6)}`}
                     style={getInputWidth(6)}
                     placeholder={getPlaceholder(6)}
                   />
                 </span>
-                , the AI system consults its
-                <span className="relative inline-block mx-2 my-3 align-middle">
+                <span>, the AI system consults its</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-7'] || ''} 
                     onChange={(e) => handleInputChange(e, 7)} 
-                    className={getInputStyles(7)}
+                    className={`w-full sm:w-auto ${getInputStyles(7)}`}
                     style={getInputWidth(7)}
                     placeholder={getPlaceholder(7)}
                   />
                 </span>
-                to predict the next steps in the sequence based on mathematical vectors called 
-                <span className="relative inline-block mx-2 my-3 align-middle">
+                <span>to predict the next steps in the sequence based on mathematical vectors called</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-8'] || ''} 
                     onChange={(e) => handleInputChange(e, 8)} 
-                    className={getInputStyles(8)}
+                    className={`w-full sm:w-auto ${getInputStyles(8)}`}
                     style={getInputWidth(8)}
                     placeholder={getPlaceholder(8)}
                   />
-                </span>.
-              </p>
+                </span>
+                <span>.</span>
+              </div>
               
-              <p>Even so, gym class heroes like to speed things up with
-                <span className="relative inline-block mx-2 my-3 align-middle">
+              <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-y-2">
+                <span>Even so, gym class heroes like to speed things up with</span>
+                <span className="relative block w-full sm:w-auto sm:mx-2 my-1 sm:my-0">
                   <input 
                     type="text" 
                     value={inputs['input-9'] || ''} 
                     onChange={(e) => handleInputChange(e, 9)} 
-                    className={getInputStyles(9)}
+                    className={`w-full sm:w-auto ${getInputStyles(9)}`}
                     style={getInputWidth(9)}
                     placeholder={getPlaceholder(9)}
                   />
-                </span>.
-              </p>
+                </span>
+                <span>.</span>
+              </div>
             </div>
           
             <div className="flex flex-wrap gap-3 mt-8 justify-center">

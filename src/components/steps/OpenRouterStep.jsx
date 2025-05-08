@@ -19,7 +19,7 @@ const OpenRouterStep = () => {
             className="h-8 w-auto mr-2" 
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "https://raw.githubusercontent.com/username/cuny-ai/main/images/openrouter.png";
+              e.target.src = "https://raw.githubusercontent.com/zmuhls/cuny-ai/master/images/openrouter.png";
               // Fallback to emoji if image fails
               if (e.target.src.includes("username") || e.target.naturalWidth === 0) {
                 e.target.style.display = "none";
@@ -63,26 +63,36 @@ const OpenRouterStep = () => {
       <div className="content-module">
         <h3>Ready-to-Try Model IDs</h3>
         <div className="bg-gray-50 p-3 rounded border border-gray-200 mt-2">
-          <ul className="list-none space-y-2">
-            <li className="flex items-center border-b border-gray-100 pb-2">
-              <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-mono mr-2">openai/gpt-4o</div>
-              <span className="text-gray-700">Flagship large language model from OpenAI</span>
+          <ul className="list-none grid gap-3 sm:gap-2 grid-cols-1">
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-mono self-start">openai/gpt-4o</div>
+                <span className="text-gray-700">Flagship large language model from OpenAI</span>
+              </div>
             </li>
-            <li className="flex items-center border-b border-gray-100 pb-2">
-              <div className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-mono mr-2">anthropic/claude-3-sonnet</div>
-              <span className="text-gray-700">Flagship large language model from Anthropic</span>
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-mono self-start">anthropic/claude-3-sonnet</div>
+                <span className="text-gray-700">Flagship large language model from Anthropic</span>
+              </div>
             </li>
-            <li className="flex items-center border-b border-gray-100 pb-2">
-              <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-mono mr-2">google/gemini-pro-vision</div>
-              <span className="text-gray-700">Vision language model for images + text from Google</span>
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-mono self-start">google/gemini-pro-vision</div>
+                <span className="text-gray-700">Vision language model for images + text from Google</span>
+              </div>
             </li>
-            <li className="flex items-center border-b border-gray-100 pb-2">
-              <div className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-mono mr-2">mistralai/pixtral-large-2411</div>
-              <span className="text-gray-700">Vision model built on mistral-large-2411 from MistralAI</span>
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-mono self-start">mistralai/pixtral-large-2411</div>
+                <span className="text-gray-700">Vision model built on mistral-large-2411 from MistralAI</span>
+              </div>
             </li>
-            <li className="flex items-center">
-              <div className="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-mono mr-2">mistralai/pixtral-12b</div>
-              <span className="text-gray-700">Fast, lightweight vision model from Mistral AI</span>
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-mono self-start">mistralai/pixtral-12b</div>
+                <span className="text-gray-700">Fast, lightweight vision model from Mistral AI</span>
+              </div>
             </li>
           </ul>
         </div>

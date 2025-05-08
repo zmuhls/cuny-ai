@@ -21,7 +21,7 @@ const ModelComparisonsStep = () => {
                 className="w-full h-40 object-cover" 
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://raw.githubusercontent.com/username/cuny-ai/main/images/recipe.jpg";
+                  e.target.src = "https://raw.githubusercontent.com/zmuhls/cuny-ai/master/images/recipe.jpg";
                 }}
               />
               <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Example 1</div>
@@ -46,7 +46,7 @@ const ModelComparisonsStep = () => {
                 className="w-full h-40 object-cover" 
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://raw.githubusercontent.com/username/cuny-ai/main/images/magician.jpg";
+                  e.target.src = "https://raw.githubusercontent.com/zmuhls/cuny-ai/master/images/magician.jpg";
                 }}
               />
               <div className="absolute top-2 right-2 bg-purple-500 text-white text-xs px-2 py-1 rounded-full">Example 2</div>
@@ -69,31 +69,43 @@ const ModelComparisonsStep = () => {
         <h3>Analysis Guide</h3>
         <p className="text-gray-600 mb-3">As you review the examples, consider these comparison points:</p>
         
-        <div className="space-y-2">
-          <div className="flex items-start">
-            <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs mt-1 mr-3">Accuracy</div>
-            <p className="text-sm text-gray-700">Which models performed better with handwritten vs. printed text?</p>
-          </div>
-          
-          <div className="flex items-start">
-            <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs mt-1 mr-3">Alt Text</div>
-            <p className="text-sm text-gray-700">How descriptive and accurate were the generated image descriptions?</p>
-          </div>
-          
-          <div className="flex items-start">
-            <div className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mt-1 mr-3">Metadata</div>
-            <p className="text-sm text-gray-700">How well did models identify and extract Dublin Core fields?</p>
-          </div>
-          
-          <div className="flex items-start">
-            <div className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs mt-1 mr-3">Ambiguity</div>
-            <p className="text-sm text-gray-700">How did models handle unclear parts of the images or text?</p>
-          </div>
-          
-          <div className="flex items-start">
-            <div className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs mt-1 mr-3">Structure</div>
-            <p className="text-sm text-gray-700">Did models present information in a clear, logical format?</p>
-          </div>
+        <div className="bg-gray-50 p-3 rounded border border-gray-200 mt-2">
+          <ul className="list-none grid gap-3 sm:gap-2 grid-cols-1">
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-mono self-start">Accuracy</div>
+                <span className="text-gray-700">Which models performed better with handwritten vs. printed text?</span>
+              </div>
+            </li>
+            
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-mono self-start">Alt Text</div>
+                <span className="text-gray-700">How descriptive and accurate were the generated image descriptions?</span>
+              </div>
+            </li>
+            
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-mono self-start">Metadata</div>
+                <span className="text-gray-700">How well did models identify and extract Dublin Core fields?</span>
+              </div>
+            </li>
+            
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-mono self-start">Ambiguity</div>
+                <span className="text-gray-700">How did models handle unclear parts of the images or text?</span>
+              </div>
+            </li>
+            
+            <li className="border border-gray-100 rounded-md p-3 bg-white shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-mono self-start">Structure</div>
+                <span className="text-gray-700">Did models present information in a clear, logical format?</span>
+              </div>
+            </li>
+          </ul>
         </div>
         
         <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mt-4">
