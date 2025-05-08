@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vision Model Comparison - The Magician</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    typography: ({ theme }) => ({
+                        DEFAULT: {
+                            css: {
+                                '--tw-prose-body': theme('colors.gray[700]'),
+                                '--tw-prose-headings': theme('colors.gray[900]'),
+                                '--tw-prose-links': theme('colors.blue[600]'),
+                                '--tw-prose-bold': theme('colors.gray[900]'),
+                                '--tw-prose-counters': theme('colors.gray[500]'),
+                                '--tw-prose-bullets': theme('colors.gray[400]'),
+                                '--tw-prose-hr': theme('colors.gray[200]'),
+                                '--tw-prose-quotes': theme('colors.gray[600]'),
+                                '--tw-prose-quote-borders': theme('colors.gray[300]'),
+                                '--tw-prose-captions': theme('colors.gray[500]'),
+                                '--tw-prose-code': theme('colors.indigo[600]'),
+                                '--tw-prose-pre-code': theme('colors.indigo[200]'),
+                                '--tw-prose-pre-bg': theme('colors.gray[800]'),
+                                '--tw-prose-th-borders': theme('colors.gray[300]'),
+                                '--tw-prose-td-borders': theme('colors.gray[200]'),
+                            },
+                        },
+                    }),
+                }
+            }
+        }
+    </script>
+    <style>
+        .accordion-content {
+            display: none;
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+            max-height: 0;
+        }
+        .accordion-content.open {
+            display: block;
+            max-height: 1000px; /* Adjust as needed */
+        }
+        .accordion-button svg {
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.open svg {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class='bg-slate-100 py-8'>
+    <div class='mx-auto max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden'>
+        <header class="bg-gray-800 text-white p-6">
+            <h1 class='text-3xl font-bold'>Vision Model Comparison</h1>
+            <p class="mt-2 text-gray-300">Comparing outputs for transcribing and analyzing an 18th-century satirical engraving: "The Magician, or Bottle Cungerer".</p>
+        </header>
+
+        <div class="p-6 prose max-w-none prose-slate">
+            <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+                <h2 class="text-xl font-semibold text-blue-800 mt-0 mb-2">Task Description</h2>
+                <p class="text-blue-700 mb-1"><strong>System Prompt:</strong> You are an advanced OCR processing tool for parsing and transcribing historical materials with mixed media, multiple formats, and/or challenging handwriting.</p>
+                <p class="text-blue-700"><strong>User Request:</strong> Transcribe the image of an archival item and generate alt text for mixed media or embedded images, filling Dublin Core fields where information present in the attached file.</p>
+                <img src="/cuny-ai/images/magician.jpg" alt="The Magician, or Bottle Cungerer - 18th-century satirical engraving" class="my-4 border rounded shadow-sm"
+                     onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/zmuhls/cuny-ai/master/images/magician.jpg';">
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Model Outputs</h2>
+
+            <div class="space-y-4" id="accordion-container">
+                <!-- Accordion Item 1: mistralai/pixtral-12b -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <span class="font-semibold text-lg">mistralai/pixtral-12b</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <h3>Dublin Core Metadata</h3>
+                        <ul>
+                        <li><strong>Title:</strong> The Magician, or Bottle Cungerer</li>
+                        <li><strong>Creator:</strong> [Unknown]</li>
+                        <li><strong>Subject:</strong> Satirical cartoon, political commentary, historical illustration</li>
+                        <li><strong>Description:</strong> A satirical cartoon depicting a scene of chaos and confusion, likely related to political or social issues. The image features various figures in a disarrayed state, with text annotations adding context to the scene.</li>
+                        <li><strong>Date:</strong> 1749 (as indicated in the image)</li>
+                        <li><strong>Format:</strong> Printed engraving</li>
+                        <li><strong>Language:</strong> English</li>
+                        <li><strong>Identifier:</strong> [Not specified]</li>
+                        <li><strong>Source:</strong> Published according to the Act of Parliament the 3rd of March 1749/50</li>
+                        <li><strong>Relation:</strong> Part of a series or collection of historical illustrations</li>
+                        <li><strong>Coverage:</strong> England, political and social commentary of the 18th century</li>
+                        <li><strong>Rights:</strong> [Not specified]</li>
+                        <li><strong>Metadata Rights:</strong> [Not specified]</li>
+                        </ul>
+                        <h3>Transcription of Text</h3>
+                        <h4>Title:</h4>
+                        <p><strong>THE MAGICIAN, OR BOTTLE CUNGERER.</strong></p>
+                        <h4>Poem:</h4>
+                        <p><strong>ENGLISH CREDULITY; or Ye&#x27;re all Bottled.</strong><br/>
+                        <em>O magnus posphac inimicis Risfus! Hor. Sat.</em></p>
+                        <p><strong>WITH H Grief, Refinement, and aver&#x27;t Eyes,</strong><br/>
+                        <em>Brazeness crops to see her Sons, (once Wise</em><br/>
+                        <em>Now turn&#x27;d Fools,) with Arms, and Rage inflam&#x27;d,</em><br/>
+                        <em>With every Vice, every Glory crown&#x27;d;</em><br/>
+                        <em>Now sink ignoble, and to nothing fall,</em><br/>
+                        <em>Obscene marching forth at Folly&#x27;s Call.</em><br/>
+                        <em>Winter, says he, ye Tories, do ye run?</em><br/>
+                        <em>And Summer, ye Whigs, do ye pursue?</em></p>
+                        <p><strong>See the whole Town in different Forms array&#x27;d,</strong><br/>
+                        <em>Some gape in Rags, some flutter in Brocade,</em><br/>
+                        <em>Some with a Bottle, some with a Stone,</em><br/>
+                        <em>When they poor easy Entertainment broke:</em><br/>
+                        <em>Hail thou great Genius, who the Jef to crown,</em><br/>
+                        <em>Thou who didst up the Spirits of the Town,</em><br/>
+                        <em>Thou with Roger I shake on this Altar,</em><br/>
+                        <em>Can fold Judgment yield to idle Schemes?</em><br/>
+                        <em>Whence these dead Visions and idle Fancy Dreams?</em><br/>
+                        <em>You&#x27;ve lost the Shades of your Forefathers View:</em><br/>
+                        <em>All Hell&#x27;s Horror, their Looks will pierce you through.</em></p>
+                        <p><strong>Were&#x27;t but possible they could&#x27;d arise,</strong><br/>
+                        <em>They&#x27;d lour&#x27;n ye and lush Recruits deprive:</em><br/>
+                        <em>They&#x27;d make ye drink the pure Recruits&#x27; Blood:</em><br/>
+                        <em>And each of ye would be the same as the Dead,</em><br/>
+                        <em>Observe the fly French Soup&#x27;s come Grin.</em><br/>
+                        <em>To think how Folly thus takes Lovers in:</em><br/>
+                        <em>Wing&#x27;d is from his Side the Warrior&#x27;s Shield,</em><br/>
+                        <em>His Sword, his Spear, his Shield, his Trumpet fled,</em><br/>
+                        <em>The Priest, the Lawyer, and perjured Friar,</em><br/>
+                        <em>We&#x27;d court their Convert in an humble Strain,</em><br/>
+                        <em>Whilst he instructs Youth before, to show his Wit,</em><br/>
+                        <em>Crown, easily led, I&#x27;m possess&#x27;d of it.</em></p>
+                        <h4>Publisher Information:</h4>
+                        <p><em>Printed according to an Act of Parliament the 3rd of March 1749/50.</em><br/>
+                        <em>Sold by H. Breams, the Corner of Bull-Head-Court, an Ludgate-Hill.</em></p>
+                        <h3>Alt Text</h3>
+                        <p>A satirical cartoon titled "The Magician, or Bottle Cungerer," depicting a chaotic scene with various figures in disarray. The image includes text annotations that provide context and commentary on the scene. The cartoon is a commentary on English credulity and political or social issues of the time, with a poem titled "ENGLISH CREDULITY; or Ye&#x27;re all Bottled" accompanying the illustration. The image is printed and dated 1749, and includes a publisher&#x27;s note indicating it was sold by H. Breams in London.</p>
+                        <hr/>
+                        <p><a href="https://openrouter.ai/mistralai/pixtral-12b" target="_blank" rel="noreferrer"><code style="background-color:#f1f1f1;padding:2px 4px;margin:0 4px;border-radius:4px;border:1px solid;border-color:#ddd">mistralai/pixtral-12b</code></a></p>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 2: mistralai/pixtral-large-2411 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <span class="font-semibold text-lg">mistralai/pixtral-large-2411</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <h3>Transcription:</h3>
+                        <p><strong>Title:</strong><br/>
+                        The Magician, or Bottle Cungerer</p>
+                        <p><strong>Image Description:</strong><br/>
+                        The image depicts a chaotic scene with a central figure resembling a magician or conjurer standing behind a table. Surrounding him are various figures, some of whom appear to be skeletal or ghostly, holding scrolls with text. Above them, floating objects and scrolls with inscriptions are visible. The setting appears to be indoors, with a mirror and other decorative elements in the background.</p>
+                        <p><strong>Text Below the Image:</strong><br/>
+                        <em>Publish&#x27;d according to Act of Parliament this 5th of March 1745/6.</em></p>
+                        <p><strong>Poem:</strong><br/>
+                        ENGLISH Credulity; or Ye&#x27;re all Bottled. O magus posthac Inimicis Risus! Hor. Sat.</p>
+                        <p>With Grief, Refinement, and averted Eyes,<br/>
+                        Fair Britannia crops to see her Sons, (once Wise<br/>
+                        So Not&#x27;rous for good Sense, and Virtue&#x27;s Cause,)<br/>
+                        With ev&#x27;ry Virtue, ev&#x27;ry Glory grown&#x27;d<br/>
+                        Now sink ignoble, and to nothing fall&#x27;s<br/>
+                        Obedient marching forth at Folly&#x27;s Call.<br/>
+                        Whither, ah whither, Tiche, do ye run?<br/>
+                        What Strange Delusion spreads around ye?<br/>
+                        While ev&#x27;ry Idle, each unmeaning Thing<br/>
+                        Shall Clouds in Triumph draw as in a String;<br/>
+                        Forth forth they run from Colleges and Halls,<br/>
+                        From Mansions, Cottages, Streets, Shops and Stalls,</p>
+                        <p>See the whole Town in diff&#x27;rent Forms array&#x27;d,<br/>
+                        Some gape in Raps, some fluster in Brocade,<br/>
+                        The Sage and Fool promiscuously are led;<br/>
+                        When they poor elf, Evilfmans beguile<br/>
+                        Hail thou great Genius, who the Jest to crown,<br/>
+                        Thus baffled up the Spirits of the Town;<br/>
+                        Asham&#x27;d, thus Bubble fills the Street with Affian.<br/>
+                        Yet tell me, Sires, retorts as yet unheard,<br/>
+                        Can fold Judgment yield so idle Schemes?<br/>
+                        Whence then these Visions and their frantic Dreams?<br/>
+                        You well of the Shades of your Forefathers view:<br/>
+                        Alas! Newspaper Lies will please ye?</p>
+                        <p>Were it but possible they could arise,<br/>
+                        They&#x27;d spurn ye and such Recruents despise:<br/>
+                        These they bequeath&#x27;d ye Nobler things t&#x27;attend,<br/>
+                        And each pursuers who first shall be the Slave;<br/>
+                        Observe the sly French Suzy&#x27;s comic Grin<br/>
+                        To think how Folly thus takes Idlers in.<br/>
+                        England this day, the Wise Man&#x27;s Scorn and Jest,<br/>
+                        And greatly be the Fools who&#x27;re so possest.<br/>
+                        The Priest, the Lawyer, and pious Erkle fain<br/>
+                        We&#x27;d court their Converts in an humble Strain;<br/>
+                        Whilst the Innate Youth debars, to thee his Wife,<br/>
+                        Cries, Folly Lady, I&#x27;ll forsake all and die.</p>
+                        <p><strong>Bottom Text:</strong><br/>
+                        <em>London: Printed for D. Dismussen, the Corner of Bell-Savage-Lane, on Ludgate-Hill.</em></p>
+                        <hr/>
+                        <h3>Alt Text:</h3>
+                        <p>An 18th-century satirical engraving titled "The Magician, or Bottle Cungerer" featuring a central figure resembling a magician surrounded by various figures, some skeletal, holding scrolls with text. The scene is indoors with decorative elements and floating objects. The image includes a lengthy poem below it, critiquing the gullibility of the English society of the time.</p>
+                        <h3>Dublin Core Metadata:</h3>
+                        <ul>
+                        <li><strong>Title:</strong> The Magician, or Bottle Cungerer</li>
+                        <li><strong>Creator:</strong> Unknown (Published by D. Dismussen)</li>
+                        <li><strong>Date:</strong> 1745/6</li>
+                        <li><strong>Type:</strong> Engraving</li>
+                        <li><strong>Format:</strong> Image with text</li>
+                        <li><strong>Identifier:</strong> (If available, e.g., from a library or archive catalog)</li>
+                        <li><strong>Source:</strong> (If available, e.g., from a library or archive catalog)</li>
+                        <li><strong>Language:</strong> English</li>
+                        <li><strong>Relation:</strong> (If part of a series or collection)</li>
+                        <li><strong>Coverage:</strong> (If relevant, e.g., London, England)</li>
+                        <li><strong>Rights:</strong> (If available, e.g., public domain or specific licensing information)</li>
+                        </ul>
+                        <hr/>
+                        <p><a href="https://openrouter.ai/mistralai/pixtral-large-2411" target="_blank" rel="noreferrer"><code style="background-color:#f1f1f1;padding:2px 4px;margin:0 4px;border-radius:4px;border:1px solid;border-color:#ddd">mistralai/pixtral-large-2411</code></a></p>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 3: openai/gpt-4o -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <span class="font-semibold text-lg">openai/gpt-4o</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <p><strong>Transcription:</strong></p>
+                        <p><strong>Title:</strong> The Magician, or Bottle Conjurer.</p>
+                        <p><strong>Caption:</strong><br/>
+                        ENGLISH Credulity; or Ye&#x27;re all Bottled. O magnus posthac inimicis risus! Hor. Sat.</p>
+                        <p>With Grief, Resentment, and averred Eyes,<br/>
+                        Britannia droops to see her Sons, whose Sire<br/>
+                        So fam&#x27;d for Arms, for Conduct so renown&#x27;d<br/>
+                        With ev&#x27;ry Virtue ev&#x27;ry Glory crown&#x27;d<br/>
+                        Now sink ignoble, and to nothing fall<br/>
+                        Obedient marching forth at Folly&#x27;s Call.<br/>
+                        Whither, ye Fools, ye Throng, do ye run?<br/>
+                        Fond to be silly, glad to be undone,<br/>
+                        Forth ev&#x27;ry idle, each unmeaning Thing<br/>
+                        Shall Clouds in Transport draw as in a String;<br/>
+                        From Mansions, Cottages, Streets, Shops and Stalls,<br/>
+                        See the whole Town in diff&#x27;rent Forms array&#x27;d,<br/>
+                        Some gape in Rags, some flutter in Brocade,<br/>
+                        Thus, thus Chican&#x27;d, can Foreigners be firm<br/>
+                        When ev&#x27;ry easy Englishman beguile?<br/>
+                        Hail thou great Genius, who the Jest to crown,<br/>
+                        Hast duped the Spirits of the Town<br/>
+                        And brought the British Character so low<br/>
+                        Yet take &#x27;em Simpletons as they appear,<br/>
+                        They&#x27;ve Sense enough to buy Experience dear.<br/>
+                        What are these Visions and those frantic Dreams?<br/>
+                        We mock the Shades of our forefathers&#x27; Stalls,<br/>
+                        Whose Looks will never be forgot.<br/>
+                        Were it but possible they cou&#x27;d arise,<br/>
+                        They&#x27;d laugh with Scorn, and Recant despise;<br/>
+                        Yet see they flock to fill the various Groups,<br/>
+                        And each condemns who first fills the Dupes<br/>
+                        Observe the sly French Satyr&#x27;s comic Grin<br/>
+                        To think how this day takes Riders in.<br/>
+                        Fired from his Side, the Warrior&#x27;s Sword is fled,<br/>
+                        And vainly he invokes the conqu&#x27;ring Dead!<br/>
+                        But lo! the Conjuror, and great Fribble fair<br/>
+                        Cou&#x27;d conduct their Converse in a humble Strain.<br/>
+                        Whilst the fair Youth before, with his Wit,<br/>
+                        Yes, folly leads, Ye&#x27;re bottled and all that.</p>
+                        <p><strong>Published according to Act of Parliament, the 5th of March 1748.</strong></p>
+                        <p>London: Printed for B. Dickinson, the Corner of Bell-Savage-Inn, on Ludgate-Hill.</p>
+                        <hr/>
+                        <p><strong>Alt Text:</strong></p>
+                        <p>An 18th-century satirical engraving titled "The Magician, or Bottle Conjurer." The image depicts a magician performing a trick with a bottle, surrounded by a crowd of onlookers. The scene includes various figures in period clothing, with speech bubbles expressing surprise and disbelief. Above, a cherub flies carrying a banner. The lower section contains a poem satirizing English credulity. The artwork is detailed, capturing the fashion and social commentary of the time.</p>
+                        <hr/>
+                        <p><a href="https://openrouter.ai/openai/gpt-4o" target="_blank" rel="noreferrer"><code style="background-color:#f1f1f1;padding:2px 4px;margin:0 4px;border-radius:4px;border:1px solid;border-color:#ddd">openai/gpt-4o</code></a></p>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 4: google/gemini-pro-vision -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <span class="font-semibold text-lg">google/gemini-pro-vision</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <p>Dublin Core fields extracted from the image:</p>
+                        <p>Title: The Magician, or Bottle Conjurer<br/>
+                        Creator: B. Dickinson<br/>
+                        Subject: A satirical print showing a group of people being fooled by a magician.<br/>
+                        Description: The magician is standing on a stage, with a table in front of him. On the table are a number of bottles, and a large book. The magician is holding a wand in his hand, and he is wearing a robe. The people are sitting in chairs in front of the stage, and they are all looking at the magician. The people are all wearing different types of clothing, and they are all的表情are different. Some of the people are smiling, while others are frowning. Some of the people are holding glasses of wine, and others are holding pipes.<br/>
+                        Type: image<br/>
+                        Format: jpg<br/>
+                        Identifier: The Magician, or Bottle Conjurer<br/>
+                        Source: B. Dickinson<br/>
+                        Date: 1749<br/>
+                        Language: English<br/>
+                        Relation:</p>
+                        <p>Coverage: England<br/>
+                        Rights: Public domain</p>
+                        <hr/>
+                        <p><a href="https://openrouter.ai/google/gemini-pro-vision/api" target="_blank" rel="noreferrer"><code style="background-color:#f1f1f1;padding:2px 4px;margin:0 4px;border-radius:4px;border:1px solid;border-color:#ddd">google/gemini-pro-vision</code></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionContainer.addEventListener('click', function (event) {
+                const button = event.target.closest('.accordion-button');
+                if (button) {
+                    const content = button.nextElementSibling;
+                    const isOpen = content.classList.contains('open');
+
+                    // Close all other accordions
+                    accordionContainer.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                        if (openContent !== content) {
+                            openContent.classList.remove('open');
+                            openContent.style.maxHeight = '0';
+                            openContent.previousElementSibling.classList.remove('open');
+                        }
+                    });
+
+                    // Toggle the clicked accordion
+                    button.classList.toggle('open', !isOpen);
+                    content.classList.toggle('open', !isOpen);
+                    if (!isOpen) {
+                        // Set max-height to scrollHeight for smooth opening
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    } else {
+                        content.style.maxHeight = '0';
+                    }
+                }
+            });
+
+            // Optionally open the first accordion item by default
+            const firstButton = accordionContainer.querySelector('.accordion-button');
+            if (firstButton) {
+                 const firstContent = firstButton.nextElementSibling;
+                 firstButton.classList.add('open');
+                 firstContent.classList.add('open');
+                 firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
+            }
+        });
+    </script>
+</body>
+</html>

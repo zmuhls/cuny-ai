@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vision Model Comparison - Recipe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    typography: ({ theme }) => ({
+                        DEFAULT: {
+                            css: {
+                                '--tw-prose-body': theme('colors.gray[700]'),
+                                '--tw-prose-headings': theme('colors.gray[900]'),
+                                '--tw-prose-links': theme('colors.blue[600]'),
+                                '--tw-prose-bold': theme('colors.gray[900]'),
+                                '--tw-prose-counters': theme('colors.gray[500]'),
+                                '--tw-prose-bullets': theme('colors.gray[400]'),
+                                '--tw-prose-hr': theme('colors.gray[200]'),
+                                '--tw-prose-quotes': theme('colors.gray[600]'),
+                                '--tw-prose-quote-borders': theme('colors.gray[300]'),
+                                '--tw-prose-captions': theme('colors.gray[500]'),
+                                '--tw-prose-code': theme('colors.indigo[600]'),
+                                '--tw-prose-pre-code': theme('colors.indigo[200]'),
+                                '--tw-prose-pre-bg': theme('colors.gray[800]'),
+                                '--tw-prose-th-borders': theme('colors.gray[300]'),
+                                '--tw-prose-td-borders': theme('colors.gray[200]'),
+                            },
+                        },
+                    }),
+                }
+            }
+        }
+    </script>
+    <style>
+        .accordion-content {
+            display: none;
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+            max-height: 0;
+        }
+        .accordion-content.open {
+            display: block;
+            max-height: 1000px; /* Adjust as needed */
+        }
+        .accordion-button svg {
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.open svg {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class='bg-slate-100 py-8'>
+    <div class='mx-auto max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden'>
+        <header class="bg-gray-800 text-white p-6">
+            <h1 class='text-3xl font-bold'>Vision Model Comparison</h1>
+            <p class="mt-2 text-gray-300">Comparing outputs for transcribing and analyzing a handwritten recipe card: "Pecan Butterballs Cookies".</p>
+        </header>
+
+        <div class="p-6 prose max-w-none prose-slate">
+            <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+                <h2 class="text-xl font-semibold text-blue-800 mt-0 mb-2">Task Description</h2>
+                <p class="text-blue-700 mb-1"><strong>System Prompt:</strong> You are an advanced OCR processing tool for parsing and transcribing historical materials with mixed media, multiple formats, and/or challenging handwriting.</p>
+                <p class="text-blue-700"><strong>User Request:</strong> Transcribe the image of an archival item and generate alt text for mixed media or embedded images, filling Dublin Core fields where information present in the attached file.</p>
+                <img src="/cuny-ai/images/recipe.jpg" alt="Handwritten recipe for Pecan Butterballs Cookies" class="my-4 border rounded shadow-sm" 
+                     onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/zmuhls/cuny-ai/master/images/recipe.jpg';">
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Model Outputs</h2>
+
+            <div class="space-y-4" id="accordion-container">
+                <!-- Accordion Item 1: mistralai/pixtral-large-2411 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <span class="font-semibold text-lg">mistralai/pixtral-large-2411</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <h3>Transcription:</h3>
+                        <p><strong>Front of the Card:</strong></p>
+                        <p><strong>Title:</strong> PECAN BUTTERBALLS COOKIES</p>
+                        <p><strong>Ingredients and Instructions:</strong><br/>
+                        1 cup butter<br/>
+                        1/4 cup honey<br/>
+                        2 cups sifted flour<br/>
+                        1/2 teaspoon salt<br/>
+                        2 teaspoons vanilla<br/>
+                        2 cups finely chopped pecans</p>
+                        <p>Form in small balls, bake at 300°F<br/>
+                        40-45 min. Roll first in powdered sugar, roll again.</p>
+                        <p><strong>Back of the Card:</strong><br/>
+                        [No additional text or information is visible on the back of the card.]</p>
+                        <h3>Alt Text:</h3>
+                        <p>A yellow index card with a handwritten recipe for "Pecan Butterballs Cookies." The recipe includes ingredients such as butter, honey, sifted flour, salt, vanilla, and finely chopped pecans. Instructions are provided for forming the dough into small balls, baking at 300°F for 40-45 minutes, and rolling the cookies in powdered sugar. A blue sticky note is attached to the card with a paperclip, containing additional handwritten notes.</p>
+                        <h3>Dublin Core Metadata:</h3>
+                        <ul>
+                        <li><strong>Title:</strong> Pecan Butterballs Cookies Recipe</li>
+                        <li><strong>Creator:</strong> [Unknown]</li>
+                        <li><strong>Date:</strong> [Unknown]</li>
+                        <li><strong>Format:</strong> Handwritten recipe on an index card</li>
+                        <li><strong>Description:</strong> A handwritten recipe for Pecan Butterballs Cookies, including ingredients and baking instructions.</li>
+                        <li><strong>Language:</strong> English</li>
+                        <li><strong>Coverage:</strong> [Not applicable]</li>
+                        <li><strong>Rights:</strong> [Not specified]</li>
+                        <li><strong>Publisher:</strong> [Not applicable]</li>
+                        <li><strong>Contributor:</strong> [Not applicable]</li>
+                        <li><strong>Type:</strong> Text (Handwritten Recipe)</li>
+                        <li><strong>Identifier:</strong> [Not applicable]</li>
+                        <li><strong>Source:</strong> [Not applicable]</li>
+                        <li><strong>Relation:</strong> [Not applicable]</li>
+                        </ul>
+                        <hr/>
+                        <p><a href="https://openrouter.ai/mistralai/pixtral-large-2411" target="_blank" rel="noreferrer"><code style="background-color:#f1f1f1;padding:2px 4px;margin:0 4px;border-radius:4px;border:1px solid;border-color:#ddd">mistralai/pixtral-large-2411</code></a></p>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 2: openai/gpt-4o -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <span class="font-semibold text-lg">openai/gpt-4o</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <p><strong>Transcription:</strong></p>
+                        <p><strong>Title:</strong> Pecan Butterballs Cookies</p>
+                        <p>1 cup butter, creamy of thumb<br/>
+                        1/4 " honey<br/>
+                        2 " sifted flour<br/>
+                        1/2 teaspoon salt<br/>
+                        2 " vanilla<br/>
+                        2 cups finely chopped pecans</p>
+                        <p>Form in small balls. Bake at 300 for 40-45 mins. Roll hot in powdered sugar. Roll cold.</p>
+                        <p><strong>Alt Text:</strong></p>
+                        <p>A yellow lined index card with a blue paper clipped note. The card is titled "Pecan Butterballs Cookies" at the top right. The blue note contains a handwritten recipe listing ingredients and instructions for making pecan butterball cookies.</p>
+                        <p><strong>Dublin Core Fields:</strong></p>
+                        <ul>
+                        <li><strong>Title:</strong> Pecan Butterballs Cookies</li>
+                        <li><strong>Description:</strong> A handwritten recipe for pecan butterball cookies, including ingredients and baking instructions.</li>
+                        <li><strong>Format:</strong> Text on paper</li>
+                        <li><strong>Language:</strong> English</li>
+                        <li><strong>Type:</strong> Text</li>
+                        <li><strong>Subject:</strong> Recipe, Cookies, Baking</li>
+                        </ul>
+                        <hr/>
+                        <p><a href="https://openrouter.ai/openai/gpt-4o" target="_blank" rel="noreferrer"><code style="background-color:#f1f1f1;padding:2px 4px;margin:0 4px;border-radius:4px;border:1px solid;border-color:#ddd">openai/gpt-4o</code></a></p>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 3: google/gemini-pro-vision -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <span class="font-semibold text-lg">google/gemini-pro-vision</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content p-4 border-t">
+                        <p>Dublin Core Fields:</p>
+                        <p>Title: Pecan Butterballs Cookies<br/>
+                        Creator: Unknown<br/>
+                        Date: 20th century<br/>
+                        Subject: Cookies<br/>
+                        Description: A handwritten recipe for Pecan Butterballs Cookies.<br/>
+                        Format: Image<br/>
+                        Source: The recipe is from the collection of the [name of the library or archive].<br/>
+                        Rights: The recipe is in the public domain.</p>
+                        <hr/>
+                        <p><a href="https://openrouter.ai/google/gemini-pro-vision/api" target="_blank" rel="noreferrer"><code style="background-color:#f1f1f1;padding:2px 4px;margin:0 4px;border-radius:4px;border:1px solid;border-color:#ddd">google/gemini-pro-vision</code></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionContainer.addEventListener('click', function (event) {
+                const button = event.target.closest('.accordion-button');
+                if (button) {
+                    const content = button.nextElementSibling;
+                    const isOpen = content.classList.contains('open');
+
+                    // Close all other accordions
+                    accordionContainer.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                        if (openContent !== content) {
+                            openContent.classList.remove('open');
+                            openContent.style.maxHeight = '0';
+                            openContent.previousElementSibling.classList.remove('open');
+                        }
+                    });
+
+                    // Toggle the clicked accordion
+                    button.classList.toggle('open', !isOpen);
+                    content.classList.toggle('open', !isOpen);
+                    if (!isOpen) {
+                        // Set max-height to scrollHeight for smooth opening
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    } else {
+                        content.style.maxHeight = '0';
+                    }
+                }
+            });
+
+            // Optionally open the first accordion item by default
+            const firstButton = accordionContainer.querySelector('.accordion-button');
+            if (firstButton) {
+                 const firstContent = firstButton.nextElementSibling;
+                 firstButton.classList.add('open');
+                 firstContent.classList.add('open');
+                 firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
+            }
+        });
+    </script>
+</body>
+</html>
