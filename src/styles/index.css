@@ -1,0 +1,284 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles that we'll migrate from the original styles */
+@layer components {
+  .accordion-content {
+    display: none;
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+    max-height: 0;
+  }
+  
+  .accordion-content.open {
+    display: block;
+    max-height: 2000px; /* Adjust as needed for potentially long content */
+  }
+  
+  .accordion-button svg {
+    transition: transform 0.3s ease;
+  }
+  
+  .accordion-button.open svg {
+    transform: rotate(180deg);
+  }
+  
+  .madlib-input {
+    border: 1px solid #ccc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    width: 150px; /* Adjust width as needed */
+    margin: 0 4px;
+    font-family: monospace;
+  }
+  
+  .madlib-answer {
+    font-weight: bold;
+    color: #059669; /* Tailwind green-600 */
+    margin-left: 5px;
+    display: none; /* Initially hidden */
+  }
+
+  /* Phase sequence styles - Horizontal sequence with dynamic height */
+  .phase-sequence {
+    position: relative;
+    width: 100%;
+    overflow: visible; /* Changed from hidden to visible to show full content */
+    border-radius: 0.75rem;
+    margin: 1rem 0 1.5rem 0;
+    background-color: #f8fafc;
+    /* Dynamic height adjustments */
+    height: auto !important; /* Force auto height */
+    min-height: 200px; /* Increased minimum height */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phase-content {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+    /* Ensure dynamic height */
+    height: auto !important; /* Force auto height */
+    min-height: 200px;
+    overflow: visible; /* Show all content */
+  }
+
+  .phase-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    /* Dynamic height based on content */
+    height: auto !important; /* Force auto height */
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Show all content */
+  }
+
+  .phase-content > div {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    /* Allow flex items to grow based on content */
+    flex-grow: 1;
+    /* Ensure all content is visible */
+    overflow: visible;
+  }
+  
+  /* Step Container styling - Dynamic sizing */
+  .step-container {
+    width: 100%;
+    /* Use auto height to adapt to content */
+    height: auto !important; /* Force auto height */
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    /* Allow flex items to grow as needed */
+    flex-grow: 1;
+    /* Ensure overflow is visible */
+    overflow: visible;
+    /* Add padding to prevent content from touching edges */
+    padding: 1rem;
+  }
+  
+  /* Step Indicator Component Styles */
+  .step-indicator {
+    width: 100%;
+    position: relative;
+  }
+  
+  .step-item {
+    z-index: 10;
+    width: 20%;
+  }
+  
+  .step-bubble {
+    width: 2rem;
+    height: 2rem;
+    background-color: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .step-item.active .step-bubble {
+    background-color: #3b82f6;
+    border-color: #2563eb;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+  }
+  
+  .step-item.completed .step-bubble {
+    background-color: #10b981;
+    border-color: #059669;
+    color: white;
+  }
+  
+  .step-label {
+    color: #64748b;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .step-item.active .step-label {
+    color: #1e40af;
+    font-weight: 600;
+  }
+  
+  .step-item.completed .step-label {
+    color: #047857;
+  }
+  
+  .progress-bar {
+    height: 0.25rem;
+    background-color: #e2e8f0;
+    border-radius: 1rem;
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background-color: #10b981;
+    border-radius: 1rem;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  /* Content modules within steps */
+  .content-module {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #f1f5f9;
+  }
+  
+  .content-module:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+  
+  .content-module h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Sequence navigation - Breadcrumb style with links - TIGHTER STYLING */
+  .sequence-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 0;
+    padding: 0;
+    position: relative;
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none;  /* Hide scrollbar in IE and Edge */
+    scrollbar-width: none;  /* Hide scrollbar in Firefox */
+  }
+  
+  .sequence-nav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari and Opera */
+  }
+
+  .sequence-nav-item {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: #6b7280;
+    white-space: nowrap;
+    text-decoration: none;
+    border-radius: 0.25rem;
+  }
+
+  .sequence-nav-item:hover {
+    color: #1f2937;
+    background-color: #f3f4f6;
+  }
+
+  .sequence-nav-item.active {
+    color: white;
+    font-weight: 600;
+    background-color: #3b82f6;
+  }
+
+  .sequence-nav-item.completed {
+    color: #10b981;
+  }
+  
+  /* Enhanced Navigation Controls styling */
+  .flex.justify-between.items-center {
+    margin: 1.5rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  /* Key terms footer styling - Minimalist and sleek */
+  .key-terms-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+    border-radius: 0 0 0.5rem 0.5rem;
+    margin-top: 1rem;
+    align-items: center;
+  }
+  
+  .key-term {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 2rem;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    color: #64748b;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .key-term:hover {
+    background-color: #eff6ff;
+    color: #3b82f6;
+    border-color: #bfdbfe;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+}

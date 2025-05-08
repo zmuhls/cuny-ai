@@ -1,5 +1,4 @@
-
-# CUNY GC | AI Prompting Lab
+# AI Prompting in Praxis
 
 _An interactive guide to language model concepts and prompting techniques._
 
