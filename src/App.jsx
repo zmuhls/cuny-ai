@@ -40,14 +40,14 @@ const App = () => {
       title: 'Prompting Exercises',
       shortTitle: 'Exercises',
       component: PromptingExercisesStep,
-      keyTerms: ['Document Completion', 'Document Understanding']
+      keyTerms: ['Document Completion', 'Temperature', 'Prompt', 'Batch Prompting']
     },
     { 
       id: 'models', 
       title: 'Comparing Model Outputs',
       shortTitle: 'Compare',
       component: ModelComparisonsStep,
-      keyTerms: []
+      keyTerms: ['Large Language Model', 'Vision Language Model', 'OCR', 'Document Understanding', 'Document Completion']
     },
     { 
       id: 'glossary', 

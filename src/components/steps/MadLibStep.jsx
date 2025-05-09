@@ -118,7 +118,7 @@ const MadLibStep = () => {
   return (
     <div>
       <div className="content-module">
-        <h3>Mad Lib: Fill in the Blank</h3>
+        <h3 className="text-2xl font-bold text-gray-800 mb-3">Mad Lib: Fill in the Blank</h3>
         <p className="text-gray-600 max-w-xl">
           <em>A concise tour through the anatomy of a prompt.</em>
         </p>
@@ -126,7 +126,7 @@ const MadLibStep = () => {
 
       {/* Term Bank */}
       <div className="content-module">
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 shadow-sm mb-6">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-lg p-6 mb-6">
           <div className="flex justify-between items-center mb-3">
             <span className="text-blue-800 font-semibold text-sm flex items-center">
               <svg
@@ -170,7 +170,9 @@ const MadLibStep = () => {
         </div>
 
         {/* Mad Lib content */}
-        <div className="bg-gray-50 p-5 rounded-lg border border-gray-200 shadow-sm space-y-6">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-lg p-6 mb-6">
+          
+          <div className="bg-white p-4 rounded-lg border border-blue-200 shadow-sm space-y-6">
           {/* 1. Opening Directive */}
           <section className="bg-white p-4 rounded-lg shadow border border-gray-100 hover:shadow-lg transition-all duration-300">
             <header className="flex items-center mb-3 pb-2 border-b border-gray-50">
@@ -251,6 +253,7 @@ const MadLibStep = () => {
               Reset Exercise
             </button>
           </div>
+        </div>
         </div>
       </div>
 

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Comparison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    typography: ({ theme }) => ({
+                        DEFAULT: {
+                            css: {
+                                '--tw-prose-body': theme('colors.gray[700]'),
+                                '--tw-prose-headings': theme('colors.gray[900]'),
+                                '--tw-prose-links': theme('colors.blue[600]'),
+                                '--tw-prose-bold': theme('colors.gray[900]'),
+                                '--tw-prose-counters': theme('colors.gray[500]'),
+                                '--tw-prose-bullets': theme('colors.gray[400]'),
+                                '--tw-prose-hr': theme('colors.gray[200]'),
+                                '--tw-prose-quotes': theme('colors.gray[600]'),
+                                '--tw-prose-quote-borders': theme('colors.gray[300]'),
+                                '--tw-prose-captions': theme('colors.gray[500]'),
+                                '--tw-prose-code': theme('colors.indigo[600]'),
+                                '--tw-prose-pre-code': theme('colors.indigo[200]'),
+                                '--tw-prose-pre-bg': theme('colors.gray[800]'),
+                                '--tw-prose-th-borders': theme('colors.gray[300]'),
+                                '--tw-prose-td-borders': theme('colors.gray[200]'),
+                            },
+                        },
+                    }),
+                    colors: {
+                        temp: {
+                            '0.3': { 
+                                light: '#EFF6FF', 
+                                border: '#1E40AF',
+                                dark: '#1E3A8A'
+                            },
+                            '0.5': { 
+                                light: '#F0F9FF', 
+                                border: '#3B82F6',
+                                dark: '#2563EB'  
+                            },
+                            '0.7': { 
+                                light: '#F5F3FF', 
+                                border: '#6366F1',
+                                dark: '#4F46E5'  
+                            },
+                            '0.9': { 
+                                light: '#FAF5FF', 
+                                border: '#8B5CF6',
+                                dark: '#7C3AED'  
+                            },
+                            '1.1': { 
+                                light: '#FDF4FF', 
+                                border: '#D946EF',
+                                dark: '#C026D3'  
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Improve accordion animations */
+        .accordion-content,
+        .analysis-accordion-content {
+            transition: max-height 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
+                        opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open,
+        .analysis-accordion-content.open {
+            max-height: 2000px; /* Adjusted for longer content */
+            opacity: 1;
+        }
+        .accordion-button svg,
+        .analysis-accordion-button svg {
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.open svg,
+        .analysis-accordion-button.open svg {
+            transform: rotate(180deg);
+        }
+        
+        /* Response cards styling */
+        .response-card {
+            border-left-width: 4px;
+            border-left-style: solid;
+        }
+        
+        /* Temperature colors */
+        .temp-0-30 { border-color: #1E40AF; background-color: #EFF6FF; }
+        .temp-0-50 { border-color: #3B82F6; background-color: #F0F9FF; }
+        .temp-0-70 { border-color: #6366F1; background-color: #F5F3FF; }
+        .temp-0-90 { border-color: #8B5CF6; background-color: #FAF5FF; }
+        .temp-1-10 { border-color: #D946EF; background-color: #FDF4FF; }
+        
+        /* Table of contents */
+        .toc-link {
+            transition: all 0.2s ease;
+        }
+        .toc-link:hover {
+            transform: translateX(4px);
+        }
+        .toc-link.active {
+            font-weight: 600;
+        }
+        
+        /* Improve scrolling behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Highlight text differences - utility classes */
+        .highlight-low {
+            background-color: rgba(239, 246, 255, 0.6);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .highlight-medium {
+            background-color: rgba(245, 243, 255, 0.6);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .highlight-high {
+            background-color: rgba(253, 244, 255, 0.6);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        
+        /* Response numbering */
+        .response-number {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.7);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class='bg-slate-100 py-8'>
+    <div class='mx-auto max-w-5xl shadow-xl bg-white rounded-lg overflow-hidden'>
+        <header class="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6 sm:p-8">
+            <h1 class='text-3xl font-bold'>Temperature Comparison - Reading is...</h1>
+            <p class="mt-2 text-gray-300">Comparing LLM outputs at different temperature settings for the same sentence completion task.</p>
+            
+            <!-- Fixed position Back to Top button -->
+            <button 
+                onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                class="fixed bottom-8 right-8 bg-gray-800 text-white p-3 rounded-full shadow-lg z-50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                aria-label="Back to top"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- No table of contents - removed as requested -->
+
+        <div class="p-6 sm:p-8 prose max-w-none prose-slate">
+            <!-- Introduction -->
+            <section id="introduction" class="mb-8">
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-indigo-100 rounded-lg p-6 mb-6 shadow-sm">
+                    <h2 class="text-xl font-semibold text-slate-700 mt-0 mb-4">Understanding the Temperature Parameter</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg text-slate-700 font-medium mb-2">The Experiment</h3>
+                            <p class="text-slate-600 mb-3 font-medium">We asked an AI model to complete the same sentence using different temperature settings:</p>
+                            
+                            <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200">
+                                <p class="text-slate-600 mb-1 font-medium">System Prompt:</p>
+                                <p class="bg-gray-50 p-2 rounded mb-3 text-gray-700 text-sm">Complete the sentence with insight and originality.</p>
+                                
+                                <p class="text-slate-600 mb-1 font-medium">User Request:</p>
+                                <p class="bg-gray-50 p-2 rounded text-gray-700 text-sm">"Reading is important because..."</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg text-slate-700 font-medium mb-2">What is Temperature?</h3>
+                            <p class="text-sm text-slate-600 mb-3">
+                                Temperature controls <strong>randomness</strong> in language model outputs:
+                            </p>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="flex items-start">
+                                    <span class="inline-block w-5 h-5 rounded-full bg-slate-200 text-center text-slate-700 mr-2 flex-shrink-0 mt-0.5">↓</span>
+                                    <span><strong>Lower values</strong> (near 0) make responses more <em>deterministic</em>, <em>consistent</em>, and <em>focused</em></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="inline-block w-5 h-5 rounded-full bg-gray-200 text-center text-gray-700 mr-2 flex-shrink-0 mt-0.5">↑</span>
+                                    <span><strong>Higher values</strong> (near 1+) introduce more <em>variability</em>, <em>creativity</em>, and <em>diversity</em></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Temperature spectrum has been moved to the Analysis section -->
+            </section>
+
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2" id="model-outputs">Model Outputs by Temperature</h2>
+
+            <div class="p-8 space-y-6" id="accordion-container">
+                <!-- Accordion Item: Temperature 0.30 -->
+                <div class="border rounded-lg overflow-hidden shadow-sm" id="temp-0-30">
+                    <button class="accordion-button w-full text-left p-0 bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-inset transition-all duration-200">
+                        <div class="flex justify-between items-center p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white font-semibold text-lg mr-4">0.3</div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-slate-800">Low Temperature</h3>
+                                    <p class="text-slate-600">Highly consistent, predictable responses</p>
+                                </div>
+                            </div>
+                            <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div class="accordion-content p-4 border-t border-blue-100">
+                        <div class="space-y-3">
+                            <div class="p-4 rounded-md temp-0-30 relative shadow-sm">
+                                <div class="response-number">1</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-30 relative shadow-sm">
+                                <div class="response-number">2</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves our communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-30 relative shadow-sm">
+                                <div class="response-number">3</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves our communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-30 relative shadow-sm">
+                                <div class="response-number">4</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-30 relative shadow-sm">
+                                <div class="response-number">5</div>
+                                <p>Reading is important because it expands our knowledge, <span class="highlight-low font-medium">enhances</span> our imagination, improves communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 bg-blue-50 p-4 rounded-md border border-blue-200">
+                            <h4 class="text-sm font-semibold text-blue-800 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Key Observations
+                            </h4>
+                            <ul class="mt-2 text-xs text-blue-700 space-y-1 list-disc pl-4">
+                                <li>Responses are nearly identical, showing extremely high consistency</li>
+                                <li>Simple, consistent structure with the same key points repeated</li>
+                                <li>Only the fifth response shows a single word variation (<span class="highlight-low font-medium">"enhances"</span> vs. "stimulates")</li>
+                                <li>Uniform length and complexity across all responses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item: Temperature 0.50 -->
+                <div class="border rounded-lg overflow-hidden shadow-sm" id="temp-0-50">
+                    <button class="accordion-button w-full text-left p-0 bg-gradient-to-r from-cyan-100 to-cyan-200 hover:from-cyan-200 hover:to-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-inset transition-all duration-200">
+                        <div class="flex justify-between items-center p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-cyan-500 text-white font-semibold text-lg mr-4">0.5</div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-slate-800">Medium-Low Temperature</h3>
+                                    <p class="text-slate-600">Mostly consistent with slight variations</p>
+                                </div>
+                            </div>
+                            <svg class="w-6 h-6 text-cyan-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div class="accordion-content p-4 border-t border-blue-100">
+                        <div class="space-y-3">
+                            <div class="p-4 rounded-md temp-0-50 relative shadow-sm">
+                                <div class="response-number">1</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves communication skills, and allows us to understand <span class="highlight-low font-medium">diverse perspectives and ideas</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-50 relative shadow-sm">
+                                <div class="response-number">2</div>
+                                <p>Reading is important because it expands our knowledge, <span class="highlight-low font-medium">enhances</span> our imagination, improves communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-50 relative shadow-sm">
+                                <div class="response-number">3</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves our communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-50 relative shadow-sm">
+                                <div class="response-number">4</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves our communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-50 relative shadow-sm">
+                                <div class="response-number">5</div>
+                                <p>Reading is important because it expands our knowledge, <span class="highlight-low font-medium">enhances</span> our imagination, improves communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 bg-blue-50 p-4 rounded-md border border-blue-200">
+                            <h4 class="text-sm font-semibold text-blue-800 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Key Observations
+                            </h4>
+                            <ul class="mt-2 text-xs text-blue-700 space-y-1 list-disc pl-4">
+                                <li>Slightly more variation than at temperature 0.30</li>
+                                <li>New phrase "diverse perspectives and ideas" appears in response #1</li>
+                                <li>Word substitution "enhances" vs. "stimulates" appears in responses #2 and #5</li>
+                                <li>Structure remains nearly identical across all responses</li>
+                                <li>Overall format and content still highly consistent</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item: Temperature 0.70 -->
+                <div class="border rounded-lg overflow-hidden shadow-sm" id="temp-0-70">
+                    <button class="accordion-button w-full text-left p-0 bg-gradient-to-r from-indigo-100 to-indigo-200 hover:from-indigo-200 hover:to-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:ring-inset transition-all duration-200">
+                        <div class="flex justify-between items-center p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-500 text-white font-semibold text-lg mr-4">0.7</div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-slate-800">Medium Temperature</h3>
+                                    <p class="text-slate-600">Noticeable variations while maintaining theme</p>
+                                </div>
+                            </div>
+                            <svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div class="accordion-content p-4 border-t border-indigo-100">
+                        <div class="space-y-3">
+                            <div class="p-4 rounded-md temp-0-70 relative shadow-sm">
+                                <div class="response-number">1</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, and helps us understand different perspectives and cultures, <span class="highlight-medium font-medium">enriching both our personal and intellectual growth</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-70 relative shadow-sm">
+                                <div class="response-number">2</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, and <span class="highlight-medium font-medium">enhances our ability to understand and communicate with others</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-70 relative shadow-sm">
+                                <div class="response-number">3</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves our communication skills, and allows us to understand different perspectives and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-70 relative shadow-sm">
+                                <div class="response-number">4</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, and helps us understand different perspectives and cultures, <span class="highlight-medium font-medium">ultimately enriching our minds and lives</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-70 relative shadow-sm">
+                                <div class="response-number">5</div>
+                                <p>Reading is important because it expands our knowledge, stimulates our imagination, improves our communication skills, and <span class="highlight-medium font-medium">helps</span> us understand different perspectives and cultures.</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 bg-indigo-50 p-4 rounded-md border border-indigo-200">
+                            <h4 class="text-sm font-semibold text-indigo-800 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Key Observations
+                            </h4>
+                            <ul class="mt-2 text-xs text-indigo-700 space-y-1 list-disc pl-4">
+                                <li>Variations become more pronounced with different phrasings</li>
+                                <li>New concepts emerge like "<span class="highlight-medium font-medium">enriching both our personal and intellectual growth</span>"</li>
+                                <li>Sentence structures begin to differ, with some using the connector "and" differently</li>
+                                <li>Some responses are slightly longer than their lower-temperature counterparts</li>
+                                <li>Responses maintain the same core message but express it with more flexibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item: Temperature 0.90 -->
+                <div class="border rounded-lg overflow-hidden shadow-sm" id="temp-0-90">
+                    <button class="accordion-button w-full text-left p-0 bg-gradient-to-r from-purple-100 to-purple-200 hover:from-purple-200 hover:to-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-inset transition-all duration-200">
+                        <div class="flex justify-between items-center p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-purple-500 text-white font-semibold text-lg mr-4">0.9</div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-slate-800">Medium-High Temperature</h3>
+                                    <p class="text-slate-600">Diverse responses with unique phrasings</p>
+                                </div>
+                            </div>
+                            <svg class="w-6 h-6 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div class="accordion-content p-4 border-t border-purple-100">
+                        <div class="space-y-3">
+                            <div class="p-4 rounded-md temp-0-90 relative shadow-sm">
+                                <div class="response-number">1</div>
+                                <p>Reading is important because it <span class="highlight-high font-medium">opens the door to new ideas</span>, expands our understanding of the world, <span class="highlight-high font-medium">strengthens our critical thinking skills</span>, and allows us to connect with the thoughts and experiences of others across time and cultures.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-90 relative shadow-sm">
+                                <div class="response-number">2</div>
+                                <p>Reading is important because it expands <span class="highlight-high font-medium">your</span> mind, <span class="highlight-high font-medium">fuels your imagination</span>, and equips <span class="highlight-high font-medium">you</span> with the knowledge and perspective to better understand the world and <span class="highlight-high font-medium">your place in it</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-90 relative shadow-sm">
+                                <div class="response-number">3</div>
+                                <p>Reading is important because it opens the door to new ideas, expands <span class="highlight-high font-medium">your</span> imagination, <span class="highlight-high font-medium">empowers you</span> with knowledge, and allows you to connect with people, cultures, and experiences beyond your own.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-90 relative shadow-sm">
+                                <div class="response-number">4</div>
+                                <p>Reading is important because it opens the door to knowledge, fuels imagination, enhances communication skills, and <span class="highlight-high font-medium">empowers us to understand the world and connect with others on a deeper level</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-0-90 relative shadow-sm">
+                                <div class="response-number">5</div>
+                                <p>Reading is important because it expands <span class="highlight-high font-medium">your</span> mind, fuels <span class="highlight-high font-medium">your</span> imagination, <span class="highlight-high font-medium">deepens your understanding</span> of the world, and empowers you to connect with ideas, cultures, and experiences beyond your own.</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 bg-purple-50 p-4 rounded-md border border-purple-200">
+                            <h4 class="text-sm font-semibold text-purple-800 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Key Observations
+                            </h4>
+                            <ul class="mt-2 text-xs text-purple-700 space-y-1 list-disc pl-4">
+                                <li>Significant diversity in structure and phrasing across all responses</li>
+                                <li>New metaphors like "<span class="highlight-high font-medium">opens the door</span>" and concepts like "<span class="highlight-high font-medium">critical thinking</span>" emerge</li>
+                                <li>Personal pronouns (<span class="highlight-high font-medium">you/your</span>) appear more frequently than in lower temperatures</li>
+                                <li>Language becomes more varied and evocative with phrases like "<span class="highlight-high font-medium">connect with others on a deeper level</span>"</li>
+                                <li>Responses begin to introduce unique concepts not present in others</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item: Temperature 1.10 -->
+                <div class="border rounded-lg overflow-hidden shadow-sm" id="temp-1-10">
+                    <button class="accordion-button w-full text-left p-0 bg-gradient-to-r from-fuchsia-100 to-fuchsia-200 hover:from-fuchsia-200 hover:to-fuchsia-300 focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-inset transition-all duration-200">
+                        <div class="flex justify-between items-center p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-fuchsia-500 text-white font-semibold text-lg mr-4">1.1</div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-slate-800">High Temperature</h3>
+                                    <p class="text-slate-600">Maximum creativity and variation</p>
+                                </div>
+                            </div>
+                            <svg class="w-6 h-6 text-fuchsia-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div class="accordion-content p-4 border-t border-fuchsia-100">
+                        <div class="space-y-3">
+                            <div class="p-4 rounded-md temp-1-10 relative shadow-sm">
+                                <div class="response-number">1</div>
+                                <p>Reading is important because it expands our understanding of the world, <span class="highlight-high font-medium">sharpens critical thinking</span>, fuels imagination, and empowers us with knowledge that can <span class="highlight-high font-medium">transform both our personal lives and the wider society</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-1-10 relative shadow-sm">
+                                <div class="response-number">2</div>
+                                <p>Reading is important because it opens the door to knowledge, fuels the imagination, builds critical thinking skills, and empowers us to <span class="highlight-high font-medium">understand both ourselves and the world around us</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-1-10 relative shadow-sm">
+                                <div class="response-number">3</div>
+                                <p>Reading is important because it expands your mind, <span class="highlight-high font-medium">enriches</span> your understanding of the world, and fuels imagination while building knowledge, <span class="highlight-high font-medium">empathy</span>, and critical thinking skills that empower <span class="highlight-high font-medium">lifelong learning and personal growth</span>.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-1-10 relative shadow-sm">
+                                <div class="response-number">4</div>
+                                <p>Reading is important because it expands your mind, fuels your imagination, improves your communication skills, and opens up <span class="highlight-high font-medium">endless opportunities</span> to learn, grow, and connect with the world around you.</p>
+                            </div>
+                            <div class="p-4 rounded-md temp-1-10 relative shadow-sm">
+                                <div class="response-number">5</div>
+                                <p>Reading is important because it opens the door to knowledge, <span class="highlight-high font-medium">sparks</span> imagination, enhances critical thinking, and empowers people to connect with ideas, cultures, and perspectives <span class="highlight-high font-medium">beyond their own experience</span>.</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 bg-fuchsia-50 p-4 rounded-md border border-fuchsia-200">
+                            <h4 class="text-sm font-semibold text-fuchsia-800 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Key Observations
+                            </h4>
+                            <ul class="mt-2 text-xs text-fuchsia-700 space-y-1 list-disc pl-4">
+                                <li>Maximum diversity with each response taking a unique approach</li>
+                                <li>Complex sentence structures with multiple clauses and connections</li>
+                                <li>Introduction of novel concepts like "<span class="highlight-high font-medium">empathy</span>", "<span class="highlight-high font-medium">lifelong learning</span>", and "<span class="highlight-high font-medium">personal growth</span>"</li>
+                                <li>More evocative language with words like "<span class="highlight-high font-medium">sparks</span>", "<span class="highlight-high font-medium">enriches</span>", and "<span class="highlight-high font-medium">transform</span>"</li>
+                                <li>Broader implications explored, such as impact on society and connections beyond personal experience</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Section with Enhanced Formatting -->
+            <section id="analysis" class="mt-16">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2" id="temperature-analysis">Temperature Effect Analysis</h2>
+                
+                <!-- Analysis Cards as Accordions -->
+                <div class="p-8 space-y-6" id="analysis-accordion-container">
+                    <!-- Combined Consistency/Complexity Analysis -->
+                    <div class="bg-white rounded-xl border border-indigo-200 shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <button class="analysis-accordion-button w-full text-left border-b border-indigo-100 bg-gradient-to-r from-indigo-100 to-indigo-200 hover:from-indigo-200 hover:to-indigo-300 focus:outline-none p-5">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold text-gray-700 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                    Temperature's Impact on Output
+                                </h3>
+                                <svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </button>
+                        <div class="analysis-accordion-content p-6">
+                            <div class="space-y-6 text-gray-700">
+                                <!-- Spectrum Visualization -->
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium text-blue-700">Low Temperature (0.3-0.5)</span>
+                                        <span class="font-medium text-fuchsia-700">High Temperature (0.7-1.1)</span>
+                                    </div>
+                                    <div class="h-6 w-full bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                                        <div class="bg-gradient-to-r from-blue-500 via-indigo-500 via-purple-500 to-fuchsia-500 h-full rounded-full"></div>
+                                    </div>
+                                    <div class="flex justify-between mt-2 text-sm">
+                                        <span class="font-medium text-blue-700">Consistent, predictable</span>
+                                        <span class="font-medium text-fuchsia-700">Varied, creative</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Content Characteristics -->
+                                <div class="space-y-6">
+                                    <div class="bg-blue-50/50 p-4 rounded-lg border-l-4 border-blue-300">
+                                        <h4 class="font-medium text-blue-800 mb-2">Content Consistency</h4>
+                                        <p class="text-blue-700 mb-2">Lower temperatures produce nearly identical responses with minimal variation.</p>
+                                        <p class="text-blue-600 text-sm bg-blue-50 p-2 rounded">Example: At 0.3, responses show only a single word variation across 5 attempts.</p>
+                                    </div>
+                                    
+                                    <div class="bg-cyan-50/50 p-4 rounded-lg border-l-4 border-cyan-300">
+                                        <h4 class="font-medium text-cyan-800 mb-2">Language Structure</h4>
+                                        <p class="text-cyan-700">Shorter sentences with simpler structure, predictable patterns, and formulaic construction.</p>
+                                    </div>
+                                    
+                                    <div class="bg-purple-50/50 p-4 rounded-lg border-l-4 border-purple-300">
+                                        <h4 class="font-medium text-purple-800 mb-2">Content Variety</h4>
+                                        <p class="text-purple-700 mb-2">Higher temperatures generate increasingly varied vocabulary, structure, and concepts.</p>
+                                        <p class="text-purple-600 text-sm bg-purple-50 p-2 rounded">Example: At 1.1, each response introduces unique concepts and entirely different phrasing.</p>
+                                    </div>
+                                    
+                                    <div class="bg-fuchsia-50/50 p-4 rounded-lg border-l-4 border-fuchsia-300">
+                                        <h4 class="font-medium text-fuchsia-800 mb-2">Language Complexity</h4>
+                                        <p class="text-fuchsia-700">Varied sentence length with complex multi-clause structures and richer, more nuanced vocabulary.</p>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-base leading-relaxed pt-4 border-t border-gray-100">
+                                    As temperature increases from 0.3 to 1.1, we observe a gradual shift from highly consistent, predictable responses with simpler language to diverse, creative outputs featuring more complex sentence structures and richer vocabulary.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Standalone Components - Full Width -->
+                    
+                    <!-- Concept Introduction -->
+                    <div class="bg-white rounded-xl border border-cyan-200 shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <button class="analysis-accordion-button w-full text-left border-b border-cyan-100 bg-gradient-to-r from-cyan-100 to-cyan-200 hover:from-cyan-200 hover:to-cyan-300 focus:outline-none p-5">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold text-gray-700 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                    </svg>
+                                    Concept Introduction
+                                </h3>
+                                <svg class="w-6 h-6 text-cyan-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </button>
+                        <div class="analysis-accordion-content p-6">
+                                <div class="space-y-4 text-gray-700">
+                                    <p class="text-base leading-relaxed">As temperature increases, new concepts emerge that weren't present in lower temperatures:</p>
+                                    
+                                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                                        <h5 class="font-medium text-slate-700 mb-3">Emerging Concepts at Higher Temperatures</h5>
+                                        <ul class="space-y-2 text-slate-600">
+                                            <li><strong>Critical thinking</strong> - appears at 0.9+</li>
+                                            <li><strong>Empathy</strong> - emerges only at 1.1</li>
+                                            <li><strong>Personal growth</strong> - unique to high temperature responses</li>
+                                            <li><strong>Lifelong learning</strong> - only present at temperature 1.1</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
+                                        <p class="text-gray-600 italic">Higher temperatures allow models to explore more conceptual territory, introducing ideas that may not appear at lower temperature settings.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Teaching Implications -->
+                        <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-all hover:shadow-md">
+                            <button class="analysis-accordion-button w-full text-left border-b border-gray-100 bg-gradient-to-r from-purple-50/50 to-purple-100/50 hover:from-purple-100/60 hover:to-purple-200/60 focus:outline-none p-5">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="text-xl font-bold text-gray-700 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-purple-600/60" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                                        </svg>
+                                        Teaching Implications
+                                    </h3>
+                                    <svg class="w-6 h-6 text-purple-500/60 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </button>
+                            <div class="analysis-accordion-content p-6">
+                                <div class="space-y-4 text-gray-700">
+                                    <p class="text-base leading-relaxed">For classroom use, the temperature setting should match your pedagogical goals:</p>
+                                    
+                                    <div class="grid grid-cols-1 gap-6 mt-6">
+                                        <div class="bg-blue-50/50 p-5 rounded-lg border border-blue-200">
+                                            <h4 class="text-lg font-semibold text-blue-800 mb-3">Lower Temperatures</h4>
+                                            <ul class="space-y-2 text-blue-700">
+                                                <li class="flex items-start">
+                                                    <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-blue-100 text-blue-600 mr-2 flex-shrink-0 mt-0.5 text-xs">✓</span>
+                                                    <span>Consistency in output with minimal variation between runs</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-blue-100 text-blue-600 mr-2 flex-shrink-0 mt-0.5 text-xs">✓</span>
+                                                    <span>Reliability for factual tasks, staying focused on core information</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-blue-100 text-blue-600 mr-2 flex-shrink-0 mt-0.5 text-xs">✓</span>
+                                                    <span>Content remains tightly centered on the specific prompt</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-fuchsia-50/50 p-5 rounded-lg border border-fuchsia-200 mt-4">
+                                            <h4 class="text-lg font-semibold text-fuchsia-800 mb-3">Higher Temperatures</h4>
+                                            <ul class="space-y-2 text-fuchsia-700">
+                                                <li class="flex items-start">
+                                                    <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-fuchsia-100 text-fuchsia-600 mr-2 flex-shrink-0 mt-0.5 text-xs">✓</span>
+                                                    <span>Creative brainstorming with varied and unexpected ideas</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-fuchsia-100 text-fuchsia-600 mr-2 flex-shrink-0 mt-0.5 text-xs">✓</span>
+                                                    <span>Multiple perspectives and alternative approaches</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-fuchsia-100 text-fuchsia-600 mr-2 flex-shrink-0 mt-0.5 text-xs">✓</span>
+                                                    <span>Thought-provoking content that sparks classroom discussions</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-indigo-50/60 border border-indigo-200 rounded-lg p-4 mt-6 shadow-sm">
+                                        <div class="flex items-center mb-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                            </svg>
+                                            <h5 class="font-bold text-indigo-800">Teaching Tip</h5>
+                                        </div>
+                                        <p class="text-gray-600 leading-relaxed">
+                                            Consider starting with higher temperatures for brainstorming sessions and creative exercises, then switching to lower temperatures when focusing on specific concepts or factual information. This approach leverages the strengths of each setting and helps students understand how parameter choices affect AI output.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Setup for temperature accordion sections
+            const accordionContainer = document.getElementById('accordion-container');
+            setupAccordion(accordionContainer, '.accordion-button', '.accordion-content');
+            
+            // Setup for analysis accordion sections
+            const analysisAccordionContainer = document.getElementById('analysis-accordion-container');
+            setupAccordion(analysisAccordionContainer, '.analysis-accordion-button', '.analysis-accordion-content');
+            
+            // Helper function to setup accordions
+            function setupAccordion(container, buttonSelector, contentSelector) {
+                if (!container) return;
+                
+                container.addEventListener('click', function (event) {
+                    const button = event.target.closest(buttonSelector);
+                    if (button) {
+                        const content = button.nextElementSibling;
+                        const isOpen = content.classList.contains('open');
+
+                        // Close all other accordions in this container
+                        container.querySelectorAll(contentSelector + '.open').forEach(openContent => {
+                            if (openContent !== content) {
+                                openContent.classList.remove('open');
+                                openContent.style.maxHeight = '0';
+                                openContent.previousElementSibling.classList.remove('open');
+                            }
+                        });
+
+                        // Toggle the clicked accordion
+                        button.classList.toggle('open', !isOpen);
+                        content.classList.toggle('open', !isOpen);
+                        if (!isOpen) {
+                            // Set max-height to scrollHeight for smooth opening
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                        } else {
+                            content.style.maxHeight = '0';
+                        }
+                    }
+                });
+
+            // Removed auto-opening of first accordion item to keep all items closed by default
+            }
+        });
+    </script>
+</body>
+</html>
