@@ -1,8 +1,6 @@
 # AI Prompting in Praxis
 
-_An interactive guide to language model concepts and prompting techniques._
-
-![OpenRouter Logo](/cuny-ai/images/openrouter.png)
+_An interactive guide to language model concepts and prompting techniques for academics and instructors.
 
 > This interactive guide introduces key concepts in Large Language Model (LLM) prompting and covers techniques for interacting with AI models, especially in the context of historical research and transcription tasks. The interface is fully mobile-responsive and designed for intuitive navigation.
 
@@ -16,18 +14,6 @@ _An interactive guide to language model concepts and prompting techniques._
 - **Visual Examples**: Compare outputs from different vision models analyzing historical documents
 - **Card-Based Layouts**: Mobile-optimized card layouts for better organization of complex content with consistent styling across sections
 - **Responsive Form Elements**: Adaptive input fields that work well across all screen sizes
-
-## Content Sections
-
-- **Mad-Lib Warm-Up:** A fun introduction to core terminology with interactive fill-in-the-blank exercises and drag-and-drop term selection
-- **OpenRouter Guide:** Setting up your environment to interact with models through a unified API
-- **Prompting Exercises:** Hands-on tasks to practice prompting techniques:
-  - Task 1: Document Completion with different temperature settings
-  - Task 2: Document Understanding using vision models
-- **Model Comparisons:** Review output differences between models analyzing the same documents:
-  - Example 1: Handwritten recipe card
-  - Example 2: Historical engraving with text
-- **AI-LLM Glossary:** Comprehensive reference of key terms for understanding AI concepts, prompting techniques, and model infrastructure
 
 ---
 
