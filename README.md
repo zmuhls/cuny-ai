@@ -1,6 +1,6 @@
 # AI Prompting in Praxis
 
-_An interactive guide to language model concepts and prompting techniques for academics and instructors.
+_An interactive guide to language model concepts and prompting techniques for academics and instructors._
 
 > This interactive guide introduces key concepts in Large Language Model (LLM) prompting and covers techniques for interacting with AI models, especially in the context of historical research and transcription tasks. The interface is fully mobile-responsive and designed for intuitive navigation.
 
